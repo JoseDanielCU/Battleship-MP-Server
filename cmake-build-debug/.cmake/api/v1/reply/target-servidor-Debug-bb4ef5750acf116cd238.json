@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "cliente.exe"
+			"path" : "servidor.exe"
 		},
 		{
-			"path" : "cliente.pdb"
+			"path" : "servidor.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -28,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 7,
+				"line" : 6,
 				"parent" : 0
 			},
 			{
@@ -63,7 +63,7 @@
 			]
 		}
 	],
-	"id" : "cliente::@6890427a1f51a3e7e1df",
+	"id" : "servidor::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -88,8 +88,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "cliente",
-	"nameOnDisk" : "cliente.exe",
+	"name" : "servidor",
+	"nameOnDisk" : "servidor.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -110,7 +110,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "client.cpp",
+			"path" : "server.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

@@ -28,20 +28,26 @@ void log_event(const std::string& clientIP, const std::string& query, const std:
 
 std::string send_message(SOCKET client_socket, const std::string& clientIP, const std::string& message) {
     if (message.empty()) return "";
+
     send(client_socket, message.c_str(), message.size(), 0);
+    std::cout << "Mensaje enviado: " << message << std::endl;  // DEBUG
 
     char buffer[1024] = {0};
-    int bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
+    int bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);  // -1 para asegurar terminador nulo
+    buffer[bytes_received] = '\0';  // Asegurar que el string termina correctamente
 
-    std::string response;
-    if (bytes_received > 0) {
-        response = std::string(buffer, bytes_received);
-        std::cout << "Respuesta del servidor: " << response << std::endl;
-        log_event(clientIP, message, SERVER_IP);
+    if (bytes_received <= 0) {
+        std::cerr << "Error recibiendo mensaje. Código: " << WSAGetLastError() << std::endl;
+        return "";
     }
+
+    std::string response(buffer, bytes_received);
+    std::cout << "Mensaje recibido: " << response << std::endl;  // DEBUG
+    log_event(clientIP, message, SERVER_IP);
 
     return response;
 }
+
 
 void animacion_espera(bool& esperando) {
     const char anim[4] = {'.', '.', '.', ' '};
@@ -54,95 +60,117 @@ void animacion_espera(bool& esperando) {
     std::cout << "\r                      \r" << std::flush;
 }
 
+void iniciar_partida(SOCKET client_socket, const std::string& username) {
+    std::cout << "Iniciando partida para " << username << "..." << std::endl;
+}
+
+bool login_menu(SOCKET client_socket, std::string& username, const std::string& clientIP) {
+    while (true) {
+        std::cout << "\n1. Registrarse\n2. Iniciar sesión\n3. Salir" << std::endl;
+        std::cout << "Seleccione una opción: ";
+        std::string input;
+        std::getline(std::cin, input);
+
+        if (input == "3") return false;  // Salir del programa
+
+        if (input != "1" && input != "2") {
+            std::cout << "Opción no válida. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        std::cout << "Usuario: ";
+        std::getline(std::cin, username);
+        std::cout << "Contraseña: ";
+        std::string password;
+        std::getline(std::cin, password);
+
+        if (username.empty() || password.empty()) {
+            std::cout << "Error: Usuario y contraseña no pueden estar vacíos." << std::endl;
+            continue;
+        }
+
+        std::string query = (input == "1") ? "REGISTER|" + username + "|" + password : "LOGIN|" + username + "|" + password;
+        std::string response = send_message(client_socket, clientIP, query);
+
+        if (response.find("LOGIN|SUCCESSFUL") != std::string::npos) {
+            return true;
+        }
+    }
+}
+
+void buscar_partida(SOCKET client_socket, const std::string& clientIP, const std::string& username) {
+    send_message(client_socket, clientIP, "QUEUE|" + username);
+    bool queue = true;
+    bool match_found = false;
+
+    std::thread animacion(animacion_espera, std::ref(queue));
+    auto start_time = std::chrono::steady_clock::now();
+
+    while (queue) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        auto elapsed_time = std::chrono::steady_clock::now() - start_time;
+        if (std::chrono::duration_cast<std::chrono::seconds>(elapsed_time).count() >= 5) {
+            queue = false;
+            std::cout << "\nNo se encontró oponente, saliendo de la cola..." << std::endl;
+            send_message(client_socket, clientIP, "CANCEL_QUEUE|" + username);
+            break;
+        }
+
+        std::string response = send_message(client_socket, clientIP, "CHECK_MATCH|" + username);
+        if (response.find("MATCH_FOUND|") != std::string::npos) {
+            queue = false;
+            match_found = true;
+            std::cout << "\n¡Oponente encontrado! La partida comenzará." << std::endl;
+            break;
+        }
+    }
+
+    if (animacion.joinable()) {
+        animacion.join();
+    }
+
+    if (match_found) {
+        iniciar_partida(client_socket, username);
+    }
+}
+
+void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::string& username) {
+    while (true) {
+        std::cout << "\n1. Ver jugadores conectados\n2. Entrar en Cola\n3. Cerrar Sesión" << std::endl;
+        std::cout << "Seleccione una opción: ";
+        std::string input;
+        std::getline(std::cin, input);
+
+        if (input == "1") {
+            send_message(client_socket, clientIP, "PLAYERS|");
+        } else if (input == "2") {
+            buscar_partida(client_socket, clientIP, username);
+        } else if (input == "3") {
+            send_message(client_socket, clientIP, "LOGOUT|" + username);
+            break;
+        } else {
+            std::cout << "Opción no válida." << std::endl;
+        }
+    }
+}
 
 int main() {
     WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Error en WSAStartup" << std::endl;
-        return -1;
-    }
-
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
     SOCKET client_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (client_socket == INVALID_SOCKET) {
-        std::cerr << "Error al crear el socket" << std::endl;
-        WSACleanup();
-        return -1;
-    }
-
-    struct sockaddr_in server_address;
+    struct sockaddr_in server_address{};
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(SERVER_PORT);
     inet_pton(AF_INET, SERVER_IP, &server_address.sin_addr);
-
-    if (connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == SOCKET_ERROR) {
-        std::cerr << "Error al conectar con el servidor" << std::endl;
-        closesocket(client_socket);
-        WSACleanup();
-        return -1;
-    }
-
-    std::cout << "Conectado al servidor." << std::endl;
+    connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address));
 
     char clientIP[NI_MAXHOST];
     gethostname(clientIP, NI_MAXHOST);
 
-    bool running = true;
-
-    while (running) {  // Outer loop: keeps the client running
-        bool logged_in = false;
+    while (true) {
         std::string username;
-
-        while (!logged_in) {  // Login loop
-            std::cout << "\n1. Registrarse\n2. Iniciar sesión\n3. Salir" << std::endl;
-            std::cout << "Seleccione una opción: ";
-            std::string input;
-            std::getline(std::cin, input);
-
-            if (input.empty() || (input != "1" && input != "2" && input != "3")) {
-                std::cout << "Opción no válida. Intente de nuevo." << std::endl;
-                continue;
-            }
-
-            int option = std::stoi(input);
-            if (option == 3) {  // Exit the entire program
-                running = false;
-                break;
-            }
-
-            std::cout << "Usuario: ";
-            std::getline(std::cin, username);
-            std::cout << "Contraseña: ";
-            std::string password;
-            std::getline(std::cin, password);
-
-            if (username.empty() || password.empty()) {
-                std::cout << "Error: Usuario y contraseña no pueden estar vacíos." << std::endl;
-                continue;
-            }
-
-            std::string query = (option == 1) ? "REGISTER|" + username + "|" + password : "LOGIN|" + username + "|" + password;
-            std::string response = send_message(client_socket, clientIP, query);
-
-            if (response.find("LOGIN|SUCCESSFUL") != std::string::npos) {
-                logged_in = true;
-            }
-        }
-
-        while (logged_in) {  // Post-login loop
-            std::cout << "\n1. Ver jugadores conectados\n2. Cerrar sesión" << std::endl;
-            std::cout << "Seleccione una opción: ";
-            std::string input;
-            std::getline(std::cin, input);
-
-            if (input == "1") {
-                send_message(client_socket, clientIP, "PLAYERS|");
-            } else if (input == "2") {
-                send_message(client_socket, clientIP, "LOGOUT|" + username);
-                logged_in = false;  // Go back to login menu
-            } else {
-                std::cout << "Opción no válida." << std::endl;
-            }
-        }
+        if (!login_menu(client_socket, username, clientIP)) break;
+        menu_logged_in(client_socket, clientIP, username);
     }
 
     closesocket(client_socket);
