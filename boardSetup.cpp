@@ -92,7 +92,9 @@ public:
                     placeShip(x, y, ship.size, direction, ship.symbol);
                     placed = true;
                 } else {
+                    cout << "======================================================" << endl;
                     cout << "El barco no puede ir en esa posición. Intente de nuevo." << endl;
+                    cout << "======================================================" << endl;
                 }
             }
         }
