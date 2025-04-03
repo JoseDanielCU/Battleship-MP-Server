@@ -1,3 +1,1 @@
-C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\servidor.dir/objects.a
-C:\Users\MLGda\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\servidor.dir/objects.a @CMakeFiles\servidor.dir\objects1.rsp
-C:\Users\MLGda\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\servidor.dir/objects.a -Wl,--no-whole-archive -o servidor.exe -Wl,--out-implib,libservidor.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\servidor.dir\linkLibs.rsp
+/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/servidor.dir/server.cpp.o -o servidor  -lws2_32

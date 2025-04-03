@@ -61,7 +61,54 @@ void waiting_animation(bool& esperando) {
 }
 
 void iniciar_partida(SOCKET client_socket, const std::string& username) {
+    // 1. Mostrar el contenido del archivo "boardSetup.txt"
+    std::ifstream boardFile("boardSetup.cpp");
+    if (boardFile.is_open()) {
+        std::stringstream buffer;
+        buffer << boardFile.rdbuf();
+        std::string boardSetupContent = buffer.str();
+        // Enviar el contenido al cliente
+        send(client_socket, boardSetupContent.c_str(), boardSetupContent.length(), 0);
+        boardFile.close();
+    } else {
+        std::string errorMsg = "Error: No se pudo abrir el archivo boardSetup.txt.\n";
+        send(client_socket, errorMsg.c_str(), errorMsg.length(), 0);
+        return;
+    }
 
+    // 2. Permitir al jugador crear su tablero
+    // Enviar instrucciones para que el usuario ingrese su configuración de tablero.
+    std::string prompt = "\nIngrese su configuracion de tablero linea por linea.\n"
+                         "Cuando finalice, escriba 'FIN' en una linea nueva.\n";
+    send(client_socket, prompt.c_str(), prompt.length(), 0);
+
+    // Recibir la configuracion del tablero desde el cliente.
+    // Se utiliza un bucle simple para recibir datos hasta detectar la palabra clave "FIN".
+    char buffer[1024];
+    std::string boardConfig;
+    while (true) {
+        memset(buffer, 0, sizeof(buffer));
+        int bytes_read = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+        if (bytes_read <= 0) {
+            // Error o desconexión
+            return;
+        }
+        buffer[bytes_read] = '\0';
+        std::string input(buffer);
+        // Agregar la entrada a la configuracion
+        boardConfig += input;
+        // Si se detecta "FIN" en la entrada, se asume que la configuración ha finalizado.
+        if (input.find("FIN") != std::string::npos) {
+            break;
+        }
+    }
+
+    // Opcional: Aquí podrías guardar o procesar boardConfig según lo necesites.
+    std::cout << "Configuracion recibida para " << username << ":\n" << boardConfig << std::endl;
+
+    // 3. Notificar que se espera al rival
+    std::string waitingMsg = "\nConfiguracion recibida. Esperando a que el rival finalice su configuracion de tablero...\n";
+    send(client_socket, waitingMsg.c_str(), waitingMsg.length(), 0);
 }
 
 bool login_menu(SOCKET client_socket, std::string& username, const std::string& clientIP) {
