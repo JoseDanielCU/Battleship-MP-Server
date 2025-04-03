@@ -79,8 +79,8 @@ void matchmaking() {
             in_game[player1] = true;
             in_game[player2] = true;
 
-            send(user_sockets[player1], ("MATCH_FOUND|" + player2).c_str(), 50, 0);
-            send(user_sockets[player2], ("MATCH_FOUND|" + player1).c_str(), 50, 0);
+            send(user_sockets[player1], ("MATCH_FOUND|" + player2).c_str(), strlen("MATCH_FOUND|"), 0);
+            send(user_sockets[player2], ("MATCH_FOUND|" + player1).c_str(), strlen("MATCH_FOUND|"), 0);
             start_game(player1, player2);
         }
         std::this_thread::sleep_for(std::chrono::seconds(1));

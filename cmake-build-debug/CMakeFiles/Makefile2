@@ -53,10 +53,10 @@ RM = C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\Battleship-MP-Server
+CMAKE_SOURCE_DIR = C:\Projects\Battleship-MP-Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\Battleship-MP-Server\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Projects\Battleship-MP-Server\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -83,14 +83,14 @@ clean: CMakeFiles/run_server.dir/clean
 CMakeFiles/servidor.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\servidor.dir\build.make CMakeFiles/servidor.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\servidor.dir\build.make CMakeFiles/servidor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num=3,4 "Built target servidor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num=3,4 "Built target servidor"
 .PHONY : CMakeFiles/servidor.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/servidor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/servidor.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/servidor.dir/rule
 
 # Convenience name for target.
@@ -109,14 +109,14 @@ CMakeFiles/servidor.dir/clean:
 CMakeFiles/cliente.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\cliente.dir\build.make CMakeFiles/cliente.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target cliente"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target cliente"
 .PHONY : CMakeFiles/cliente.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cliente.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/cliente.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/cliente.dir/rule
 
 # Convenience name for target.
@@ -135,14 +135,14 @@ CMakeFiles/cliente.dir/clean:
 CMakeFiles/run_server.dir/all: CMakeFiles/servidor.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_server.dir\build.make CMakeFiles/run_server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_server.dir\build.make CMakeFiles/run_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num= "Built target run_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles --progress-num= "Built target run_server"
 .PHONY : CMakeFiles/run_server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/run_server.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/run_server.dir/rule
 
 # Convenience name for target.

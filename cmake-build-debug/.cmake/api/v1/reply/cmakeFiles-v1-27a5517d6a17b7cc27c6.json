@@ -154,8 +154,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "F:/Battleship-MP-Server/cmake-build-debug",
-		"source" : "F:/Battleship-MP-Server"
+		"build" : "C:/Projects/Battleship-MP-Server/cmake-build-debug",
+		"source" : "C:/Projects/Battleship-MP-Server"
 	},
 	"version" : 
 	{

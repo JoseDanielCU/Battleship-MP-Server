@@ -49,7 +49,7 @@ std::string send_message(SOCKET client_socket, const std::string& clientIP, cons
 }
 
 
-void animacion_espera(bool& esperando) {
+void waiting_animation(bool& esperando) {
     const char anim[4] = {'.', '.', '.', ' '};
     int i = 0;
     while (esperando) {
@@ -61,7 +61,7 @@ void animacion_espera(bool& esperando) {
 }
 
 void iniciar_partida(SOCKET client_socket, const std::string& username) {
-    std::cout << "Iniciando partida para " << username << "..." << std::endl;
+
 }
 
 bool login_menu(SOCKET client_socket, std::string& username, const std::string& clientIP) {
@@ -98,12 +98,12 @@ bool login_menu(SOCKET client_socket, std::string& username, const std::string& 
     }
 }
 
-void buscar_partida(SOCKET client_socket, const std::string& clientIP, const std::string& username) {
+void search_game(SOCKET client_socket, const std::string& clientIP, const std::string& username) {
     send_message(client_socket, clientIP, "QUEUE|" + username);
     bool queue = true;
     bool match_found = false;
 
-    std::thread animacion(animacion_espera, std::ref(queue));
+    std::thread animacion(waiting_animation, std::ref(queue));
     auto start_time = std::chrono::steady_clock::now();
 
     while (queue) {
@@ -144,7 +144,7 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
         if (input == "1") {
             send_message(client_socket, clientIP, "PLAYERS|");
         } else if (input == "2") {
-            buscar_partida(client_socket, clientIP, username);
+            search_game(client_socket, clientIP, username);
         } else if (input == "3") {
             send_message(client_socket, clientIP, "LOGOUT|" + username);
             break;

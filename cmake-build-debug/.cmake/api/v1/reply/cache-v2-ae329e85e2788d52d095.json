@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "F:/Battleship-MP-Server/cmake-build-debug"
+			"value" : "C:/Projects/Battleship-MP-Server/cmake-build-debug"
 		},
 		{
 			"name" : "Battleship_MP_Project_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "F:/Battleship-MP-Server"
+			"value" : "C:/Projects/Battleship-MP-Server"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "f:/Battleship-MP-Server/cmake-build-debug"
+			"value" : "c:/Projects/Battleship-MP-Server/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -611,7 +611,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -683,7 +683,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "F:/Battleship-MP-Server"
+			"value" : "C:/Projects/Battleship-MP-Server"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
