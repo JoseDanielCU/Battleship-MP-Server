@@ -6,22 +6,22 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <windows.h>
 
-#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "ws2_32.lib")-
 
-#define SERVER_IP "127.0.0.1"
-#define SERVER_PORT 8080
-
-void log_event(const std::string& clientIP, const std::string& query, const std::string& responseIP) {
+void log_event(const std::string& clientIP, const std::string& query, const std::string& response) {
     std::ofstream log_file("log.log", std::ios::app);
     if (log_file.is_open()) {
         time_t now = time(0);
         struct tm tstruct;
-        char time_buf[80];
+        char date_buf[11];   // YYYY-MM-DD
+        char time_buf[9];    // HH:MM:SS
         localtime_s(&tstruct, &now);
-        strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %X", &tstruct);
+        strftime(date_buf, sizeof(date_buf), "%Y-%m-%d", &tstruct);
+        strftime(time_buf, sizeof(time_buf), "%H:%M:%S", &tstruct);
 
-        log_file << time_buf << " " << clientIP << " " << query << " " << responseIP << std::endl;
+        log_file << date_buf << " " << time_buf << " " << clientIP << " " << query << " " << response << std::endl;
         log_file.close();
     }
 }
@@ -30,11 +30,11 @@ std::string send_message(SOCKET client_socket, const std::string& clientIP, cons
     if (message.empty()) return "";
 
     send(client_socket, message.c_str(), message.size(), 0);
-    std::cout << "Mensaje enviado: " << message << std::endl;  // DEBUG
+    std::cout << "Mensaje enviado: " << message << std::endl;
 
     char buffer[1024] = {0};
-    int bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);  // -1 para asegurar terminador nulo
-    buffer[bytes_received] = '\0';  // Asegurar que el string termina correctamente
+    int bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+    buffer[bytes_received] = '\0';
 
     if (bytes_received <= 0) {
         std::cerr << "Error recibiendo mensaje. Código: " << WSAGetLastError() << std::endl;
@@ -42,12 +42,12 @@ std::string send_message(SOCKET client_socket, const std::string& clientIP, cons
     }
 
     std::string response(buffer, bytes_received);
-    std::cout << "Mensaje recibido: " << response << std::endl;  // DEBUG
-    log_event(clientIP, message, SERVER_IP);
+    std::cout << "Mensaje recibido: " << response << std::endl;
+
+    log_event(clientIP, message, response);
 
     return response;
 }
-
 
 void waiting_animation(bool& esperando) {
     const char anim[4] = {'.', '.', '.', ' '};
@@ -60,56 +60,47 @@ void waiting_animation(bool& esperando) {
     std::cout << "\r                      \r" << std::flush;
 }
 
-void iniciar_partida(SOCKET client_socket, const std::string& username) {
-    // 1. Mostrar el contenido del archivo "boardSetup.txt"
-    std::ifstream boardFile("boardSetup.cpp");
-    if (boardFile.is_open()) {
-        std::stringstream buffer;
-        buffer << boardFile.rdbuf();
-        std::string boardSetupContent = buffer.str();
-        // Enviar el contenido al cliente
-        send(client_socket, boardSetupContent.c_str(), boardSetupContent.length(), 0);
-        boardFile.close();
-    } else {
-        std::string errorMsg = "Error: No se pudo abrir el archivo boardSetup.txt.\n";
-        send(client_socket, errorMsg.c_str(), errorMsg.length(), 0);
-        return;
-    }
+void start_game(SOCKET client_socket, const std::string& username) {
+    std::cout << "\n--- La partida ha comenzado ---\n";
+    bool game_active = true;
 
-    // 2. Permitir al jugador crear su tablero
-    // Enviar instrucciones para que el usuario ingrese su configuración de tablero.
-    std::string prompt = "\nIngrese su configuracion de tablero linea por linea.\n"
-                         "Cuando finalice, escriba 'FIN' en una linea nueva.\n";
-    send(client_socket, prompt.c_str(), prompt.length(), 0);
+    std::thread listener_thread([&]() {
+        while (game_active) {
+            char buffer[1024] = {0};
+            int bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+            if (bytes_received <= 0) break;
+            buffer[bytes_received] = '\0';
+            std::string message(buffer);
 
-    // Recibir la configuracion del tablero desde el cliente.
-    // Se utiliza un bucle simple para recibir datos hasta detectar la palabra clave "FIN".
-    char buffer[1024];
-    std::string boardConfig;
-    while (true) {
-        memset(buffer, 0, sizeof(buffer));
-        int bytes_read = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
-        if (bytes_read <= 0) {
-            // Error o desconexión
-            return;
+            if (message == "GAME|WIN") {
+                std::cout << "\n¡Perdiste la partida! El oponente fue más rápido.\n";
+                game_active = false;
+            } else if (message == "GAME|LOSE") {
+                std::cout << "\n¡Ganaste la partida!\n";
+                game_active = false;
+            }
         }
-        buffer[bytes_read] = '\0';
-        std::string input(buffer);
-        // Agregar la entrada a la configuracion
-        boardConfig += input;
-        // Si se detecta "FIN" en la entrada, se asume que la configuración ha finalizado.
-        if (input.find("FIN") != std::string::npos) {
+    });
+
+    while (game_active) {
+        std::string input;
+        std::getline(std::cin, input);
+        if (input == "ganar") {
+            send(client_socket, "GAME|WIN", strlen("GAME|WIN"), 0);
             break;
         }
+        std::cout << "Debes escribir \"ganar\" para ganar la partida.\n";
     }
 
-    // Opcional: Aquí podrías guardar o procesar boardConfig según lo necesites.
-    std::cout << "Configuracion recibida para " << username << ":\n" << boardConfig << std::endl;
+    listener_thread.join();
 
-    // 3. Notificar que se espera al rival
-    std::string waitingMsg = "\nConfiguracion recibida. Esperando a que el rival finalice su configuracion de tablero...\n";
-    send(client_socket, waitingMsg.c_str(), waitingMsg.length(), 0);
+    std::cout << "\nVolviendo al menú principal...\n";
 }
+
+
+
+
+
 
 bool login_menu(SOCKET client_socket, std::string& username, const std::string& clientIP) {
     while (true) {
@@ -118,7 +109,7 @@ bool login_menu(SOCKET client_socket, std::string& username, const std::string& 
         std::string input;
         std::getline(std::cin, input);
 
-        if (input == "3") return false;  // Salir del programa
+        if (input == "3") return false;
 
         if (input != "1" && input != "2") {
             std::cout << "Opción no válida. Intente de nuevo." << std::endl;
@@ -150,13 +141,13 @@ void search_game(SOCKET client_socket, const std::string& clientIP, const std::s
     bool queue = true;
     bool match_found = false;
 
-    std::thread animacion(waiting_animation, std::ref(queue));
+    std::thread animation(waiting_animation, std::ref(queue));
     auto start_time = std::chrono::steady_clock::now();
 
     while (queue) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         auto elapsed_time = std::chrono::steady_clock::now() - start_time;
-        if (std::chrono::duration_cast<std::chrono::seconds>(elapsed_time).count() >= 5) {
+        if (std::chrono::duration_cast<std::chrono::seconds>(elapsed_time).count() >= 15) {
             queue = false;
             std::cout << "\nNo se encontró oponente, saliendo de la cola..." << std::endl;
             send_message(client_socket, clientIP, "CANCEL_QUEUE|" + username);
@@ -164,7 +155,7 @@ void search_game(SOCKET client_socket, const std::string& clientIP, const std::s
         }
 
         std::string response = send_message(client_socket, clientIP, "CHECK_MATCH|" + username);
-        if (response.find("MATCH_FOUND|") != std::string::npos) {
+        if (response.find("MATCH|FOUND") != std::string::npos) {
             queue = false;
             match_found = true;
             std::cout << "\n¡Oponente encontrado! La partida comenzará." << std::endl;
@@ -172,12 +163,12 @@ void search_game(SOCKET client_socket, const std::string& clientIP, const std::s
         }
     }
 
-    if (animacion.joinable()) {
-        animacion.join();
+    if (animation.joinable()) {
+        animation.join();
     }
 
     if (match_found) {
-        iniciar_partida(client_socket, username);
+        start_game(client_socket, username);
     }
 }
 
@@ -200,19 +191,76 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
         }
     }
 }
+std::string get_local_ip() {
+    char hostname[NI_MAXHOST];
+    if (gethostname(hostname, sizeof(hostname)) == SOCKET_ERROR) {
+        std::cerr << "Error al obtener hostname: " << WSAGetLastError() << std::endl;
+        return "UNKNOWN";
+    }
+
+    struct addrinfo hints{}, *res = nullptr;
+    hints.ai_family = AF_INET; // Solo IPv4
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+
+    if (getaddrinfo(hostname, nullptr, &hints, &res) != 0) {
+        std::cerr << "Error en getaddrinfo: " << WSAGetLastError() << std::endl;
+        return "UNKNOWN";
+    }
+
+    char ip_str[INET_ADDRSTRLEN];
+    struct sockaddr_in* addr = (struct sockaddr_in*)res->ai_addr;
+    inet_ntop(AF_INET, &(addr->sin_addr), ip_str, INET_ADDRSTRLEN);
+    freeaddrinfo(res);
+
+    return std::string(ip_str);
+}
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    std::cin.tie(nullptr);
+    const std::string server_ip = "127.0.0.1";
+    const int server_port = 8080;
     WSADATA wsaData;
-    WSAStartup(MAKEWORD(2, 2), &wsaData);
-    SOCKET client_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+        std::cerr << "Error al iniciar Winsock." << std::endl;
+        return 1;
+    }
+
+    std::string clientIP = get_local_ip();
+
+    SOCKET client_socket;
     struct sockaddr_in server_address{};
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(SERVER_PORT);
-    inet_pton(AF_INET, SERVER_IP, &server_address.sin_addr);
-    connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address));
+    server_address.sin_port = htons(server_port);
+    inet_pton(AF_INET, server_ip.c_str(), &server_address.sin_addr);
 
-    char clientIP[NI_MAXHOST];
-    gethostname(clientIP, NI_MAXHOST);
+    bool connected = false;
+    auto start_time = std::chrono::steady_clock::now();
+
+    std::cout << "Intentando conectar con el servidor..." << std::endl;
+
+    while (!connected) {
+        client_socket = socket(AF_INET, SOCK_STREAM, 0);
+        if (connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == 0) {
+            connected = true;
+            break;
+        }
+
+        closesocket(client_socket);
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        auto elapsed = std::chrono::steady_clock::now() - start_time;
+        if (std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() >= 15) {
+            std::cerr << "No fue posible conectar con el servidor después de 15 segundos." << std::endl;
+            WSACleanup();
+            return 1;
+        }
+
+        std::cout << "." << std::flush;
+    }
+
+    std::cout << "\nConexión establecida con éxito." << std::endl;
 
     while (true) {
         std::string username;
@@ -224,3 +272,4 @@ int main() {
     WSACleanup();
     return 0;
 }
+

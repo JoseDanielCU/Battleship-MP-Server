@@ -1,5 +1,6 @@
-/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug/CMakeFiles/servidor.dir
-/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug/CMakeFiles/cliente.dir
-/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug/CMakeFiles/run_server.dir
-/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/servidor.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/cliente.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/board.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/run_server.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/edit_cache.dir
+F:/Battleship-MP-Server/cmake-build-debug/CMakeFiles/rebuild_cache.dir

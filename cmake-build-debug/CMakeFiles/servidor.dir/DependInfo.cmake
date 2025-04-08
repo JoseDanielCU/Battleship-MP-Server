@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/server.cpp" "CMakeFiles/servidor.dir/server.cpp.o" "gcc" "CMakeFiles/servidor.dir/server.cpp.o.d"
+  "F:/Battleship-MP-Server/server.cpp" "CMakeFiles/servidor.dir/server.cpp.obj" "gcc" "CMakeFiles/servidor.dir/server.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
