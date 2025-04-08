@@ -116,6 +116,7 @@ bool login_menu(SOCKET client_socket, std::string& username, const std::string& 
             continue;
         }
 
+
         std::cout << "Usuario: ";
         std::getline(std::cin, username);
         std::cout << "Contraseña: ";
