@@ -52,7 +52,7 @@ void save_user(const std::string& username, const std::string& password) {
 }
 
 void start_game(const std::string& player1, const std::string& player2, ServerState& state) {
-    std::cout << "PARTTIDA INICIADA" <<" "<< player1 << "vs" << player2 << std::endl;
+    std::cout << "PARTIDA INICIADA: " << player1 << " vs " << player2 << std::endl;
     SOCKET socket1 = state.user_sockets[player1];
     SOCKET socket2 = state.user_sockets[player2];
 
@@ -62,7 +62,6 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
     auto listen_player = [&](const std::string& player, SOCKET sock) {
         char buffer[1024];
         while (!has_winner) {
-            std::cout << "ESCUCHANDO PETICIONES" << std::endl;
             int bytes = recv(sock, buffer, sizeof(buffer) - 1, 0);
             if (bytes <= 0) break;
 
@@ -85,9 +84,12 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
 
     std::string loser = (winner == player1) ? player2 : player1;
 
+    // Enviar resultados
     send(state.user_sockets[winner], "GAME|WIN", strlen("GAME|WIN"), 0);
     send(state.user_sockets[loser], "GAME|LOSE", strlen("GAME|LOSE"), 0);
 
+    // Actualizar estado con protección de concurrencia
+    std::lock_guard<std::mutex> lock(state.game_mutex);
     state.in_game[player1] = false;
     state.in_game[player2] = false;
 
@@ -96,6 +98,7 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
 
 void matchmaking(ServerState& state) {
     while (true) {
+        std::lock_guard<std::mutex> lock(state.game_mutex); // Proteger acceso a la cola
         if (state.matchmaking_queue.size() >= 2) {
             auto it = state.matchmaking_queue.begin();
             std::string player1 = *it;
@@ -104,14 +107,19 @@ void matchmaking(ServerState& state) {
             std::string player2 = *it;
             state.matchmaking_queue.erase(it);
 
+            // Marcar a los jugadores como "en juego"
             state.in_game[player1] = true;
             state.in_game[player2] = true;
 
+            // Notificar a los jugadores del emparejamiento
             send(state.user_sockets[player1], ("MATCH|" + player2).c_str(), strlen("MATCH|FOUND"), 0);
             send(state.user_sockets[player2], ("MATCH|" + player1).c_str(), strlen("MATCH|FOUND"), 0);
-            start_game(player1, player2, state);
+
+            // Lanzar la partida en un hilo separado
+            std::thread game_thread(start_game, player1, player2, std::ref(state));
+            game_thread.detach(); // El hilo se ejecuta independientemente
         }
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1)); // Evitar consumo excesivo de CPU
     }
 }
 
