@@ -1,4 +1,4 @@
-C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S C:\Projects\Battleship-MP-Server -B C:\Projects\Battleship-MP-Server\cmake-build-debug
--- Configuring done (0.8s)
--- Generating done (0.8s)
--- Build files have been written to: C:/Projects/Battleship-MP-Server/cmake-build-debug
+C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S F:\Battleship-MP-Server -B F:\Battleship-MP-Server\cmake-build-debug
+-- Configuring done (0.1s)
+-- Generating done (0.2s)
+-- Build files have been written to: F:/Battleship-MP-Server/cmake-build-debug

@@ -12,17 +12,18 @@ const char WATER = '~';
 struct Ship {
     string name;
     int size;
-    char symbol; // New field for ship representation
+    char symbol;
 };
 
 // List of ships
-vector<Ship> ships = {
+std::vector<Ship> ships = {
     {"Aircraft Carrier", 5, 'A'},
     {"Battleship", 4, 'B'},
     {"Cruiser", 3, 'C'}, {"Cruiser", 3, 'C'},
     {"Destroyer", 2, 'D'}, {"Destroyer", 2, 'D'},
     {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}
 };
+
 
 // Class representing the game board
 class Board {
@@ -55,7 +56,7 @@ public:
             if (y + size > BOARD_SIZE) return false;
             for (int i = 0; i < size; i++)
                 if (grid[x][y + i] != WATER) return false;
-        } else {  // Vertical placement
+        } else {
             if (x + size > BOARD_SIZE) return false;
             for (int i = 0; i < size; i++)
                 if (grid[x + i][y] != WATER) return false;
@@ -73,7 +74,7 @@ public:
         }
     }
 
-    // Method to place a ships manualy
+    // Method to place a ships manual
     void manualPlacement() {
         for (const auto &ship : ships) {
             int x, y;
@@ -84,6 +85,7 @@ public:
                 display();
                 cout << "Colocando " << ship.name << " (" << ship.size << " casillas)." << endl;
                 cout << "Ingrese fila inicial: "; cin >> x;
+
                 cout << "Ingrese columna inicial: "; cin >> y;
                 cout << "Ingrese direccion (H/V): "; cin >> direction;
                 direction = toupper(direction);
@@ -99,6 +101,23 @@ public:
             }
         }
     }
+    string serialize() {
+        string data;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                data += grid[i][j];
+            }
+        }
+        return data;
+    }
+    void deserialize(const string &data) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                grid[i][j] = data[i * BOARD_SIZE + j];
+            }
+        }
+    }
+
 
 
     // Method to randomly place ships
@@ -134,7 +153,7 @@ int main() {
 
     if (choice == 'M') {
         playerBoard.manualPlacement();
-    } else {
+    } else if (choice== 'A') {
         playerBoard.randomPlacement();
     }
 
