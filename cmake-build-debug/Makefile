@@ -56,10 +56,10 @@ RM = C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Projects\Battleship-MP-Server
+CMAKE_SOURCE_DIR = F:\Battleship-MP-Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Projects\Battleship-MP-Server\cmake-build-debug
+CMAKE_BINARY_DIR = F:\Battleship-MP-Server\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles C:\Projects\Battleship-MP-Server\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles F:\Battleship-MP-Server\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,6 +142,19 @@ cliente/fast:
 .PHONY : cliente/fast
 
 #=============================================================================
+# Target rules for targets named board
+
+# Build rule for target.
+board: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 board
+.PHONY : board
+
+# fast build rule for target.
+board/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\board.dir\build.make CMakeFiles/board.dir/build
+.PHONY : board/fast
+
+#=============================================================================
 # Target rules for targets named run_server
 
 # Build rule for target.
@@ -153,6 +166,30 @@ run_server: cmake_check_build_system
 run_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_server.dir\build.make CMakeFiles/run_server.dir/build
 .PHONY : run_server/fast
+
+boardSetup.obj: boardSetup.cpp.obj
+.PHONY : boardSetup.obj
+
+# target to build an object file
+boardSetup.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\board.dir\build.make CMakeFiles/board.dir/boardSetup.cpp.obj
+.PHONY : boardSetup.cpp.obj
+
+boardSetup.i: boardSetup.cpp.i
+.PHONY : boardSetup.i
+
+# target to preprocess a source file
+boardSetup.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\board.dir\build.make CMakeFiles/board.dir/boardSetup.cpp.i
+.PHONY : boardSetup.cpp.i
+
+boardSetup.s: boardSetup.cpp.s
+.PHONY : boardSetup.s
+
+# target to generate assembly for a file
+boardSetup.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\board.dir\build.make CMakeFiles/board.dir/boardSetup.cpp.s
+.PHONY : boardSetup.cpp.s
 
 client.obj: client.cpp.obj
 .PHONY : client.obj
@@ -211,8 +248,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... run_server
+	@echo ... board
 	@echo ... cliente
 	@echo ... servidor
+	@echo ... boardSetup.obj
+	@echo ... boardSetup.i
+	@echo ... boardSetup.s
 	@echo ... client.obj
 	@echo ... client.i
 	@echo ... client.s

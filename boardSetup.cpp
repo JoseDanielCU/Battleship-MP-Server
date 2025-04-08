@@ -12,7 +12,7 @@ const char WATER = '~';
 struct Ship {
     string name;
     int size;
-    char symbol; // New field for ship representation
+    char symbol;
 };
 
 // List of ships
@@ -55,7 +55,7 @@ public:
             if (y + size > BOARD_SIZE) return false;
             for (int i = 0; i < size; i++)
                 if (grid[x][y + i] != WATER) return false;
-        } else {  // Vertical placement
+        } else {
             if (x + size > BOARD_SIZE) return false;
             for (int i = 0; i < size; i++)
                 if (grid[x + i][y] != WATER) return false;
@@ -73,7 +73,7 @@ public:
         }
     }
 
-    // Method to place a ships manualy
+    // Method to place a ships manual
     void manualPlacement() {
         for (const auto &ship : ships) {
             int x, y;
@@ -84,6 +84,7 @@ public:
                 display();
                 cout << "Colocando " << ship.name << " (" << ship.size << " casillas)." << endl;
                 cout << "Ingrese fila inicial: "; cin >> x;
+
                 cout << "Ingrese columna inicial: "; cin >> y;
                 cout << "Ingrese direccion (H/V): "; cin >> direction;
                 direction = toupper(direction);

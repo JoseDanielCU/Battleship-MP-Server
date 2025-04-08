@@ -7,11 +7,6 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "C:/Projects/Battleship-MP-Server/CMakeLists.txt"
-  "CMakeFiles/3.30.5/CMakeCCompiler.cmake"
-  "CMakeFiles/3.30.5/CMakeCXXCompiler.cmake"
-  "CMakeFiles/3.30.5/CMakeRCCompiler.cmake"
-  "CMakeFiles/3.30.5/CMakeSystem.cmake"
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake"
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake"
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake"
@@ -34,6 +29,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows-windres.cmake"
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/Windows.cmake"
   "C:/Users/MLGda/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake"
+  "F:/Battleship-MP-Server/CMakeLists.txt"
+  "CMakeFiles/3.30.5/CMakeCCompiler.cmake"
+  "CMakeFiles/3.30.5/CMakeCXXCompiler.cmake"
+  "CMakeFiles/3.30.5/CMakeRCCompiler.cmake"
+  "CMakeFiles/3.30.5/CMakeSystem.cmake"
   )
 
 # The corresponding makefile is:
@@ -51,5 +51,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/servidor.dir/DependInfo.cmake"
   "CMakeFiles/cliente.dir/DependInfo.cmake"
+  "CMakeFiles/board.dir/DependInfo.cmake"
   "CMakeFiles/run_server.dir/DependInfo.cmake"
   )
