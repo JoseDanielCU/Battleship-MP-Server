@@ -1,21 +1,29 @@
 # Battleship-MP-Server
 
 ## Descripción
-Este proyecto implementa un servidor completo para el juego de Batalla Naval, desarrollado en C con sockets Berkeley y hilos POSIX. Desplegado en una instancia de AWS EC2, permite a los jugadores registrarse, entrar en cola, emparejarse, colocar barcos, disparar con un temporizador de 30 segundos por turno, y recibir actualizaciones del estado del juego. Todos los eventos se registran en un archivo de log. El servidor maneja desconexiones y errores de forma robusta.
+Este proyecto es un servidor de Batalla Naval implementado en C++ utilizando Winsock para la comunicación en red e hilos STL para concurrencia. Desplegado en una instancia AWS EC2 (Windows), permite a dos jugadores registrarse, iniciar sesión, entrar en cola, configurar tableros, jugar turnos, y manejar desconexiones. Los eventos se registran en un archivo de log. El servidor soporta una flota predefinida de 9 barcos en un tablero de 10x10.
 
 ### Características
-- Registro y autenticación de jugadores (`REGISTER`, `LOGIN`, `LOG_OUT`).
+- Registro y autenticación (`REGISTER`, `LOGIN`, `LOGOUT`).
 - Cola de emparejamiento (`QUEUE`, `CANCEL_QUEUE`).
-- Gestión de partidas (`MATCH`, `GAME`).
-- Disparos con respuestas detalladas (`FIRE`, `HIT`, `MISS`, `SUNK`).
-- Control de turnos con temporizador de 30 segundos (`TURN`).
+- Configuración de tableros mediante `BOARD`.
+- Juego por turnos con disparos (`FIRE`, `HIT`, `MISS`, `SUNK`).
 - Lista de jugadores activos (`PLAYERS`).
-- Registro de eventos en `Battleship-MP-Server/cmake-build-debug/log.log`.
+- Registro de eventos en un archivo de log.
 - Despliegue en AWS con IP pública.
+
+### Flota de Barcos
+- Aircraft Carrier 
+- Battleship 
+- 2x Cruiser 
+- 2x Destroyer 
+- 3x Submarine 
 
 ---
 
 ## Requisitos
 - **Cliente**: Sistema con `netcat` (`nc`) instalado.
-- **Servidor**: Instancia AWS EC2 (Ubuntu) con GCC, bibliotecas POSIX (`pthread`), y acceso SSH.
+- **Servidor**: AWS EC2 (Windows Server) con MinGW o MSVC, y Winsock (`ws2_32.lib`).
 - **Red**: Puerto 8080 abierto en el Security Group de AWS.
+
+---
