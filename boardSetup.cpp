@@ -101,25 +101,6 @@ public:
             }
         }
     }
-    string serialize() {
-        string data;
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                data += grid[i][j];
-            }
-        }
-        return data;
-    }
-    void deserialize(const string &data) {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                grid[i][j] = data[i * BOARD_SIZE + j];
-            }
-        }
-    }
-
-
-
     // Method to randomly place ships
     void randomPlacement() {
         srand(time(0));
@@ -137,6 +118,22 @@ public:
                     placeShip(x, y, ship.size, direction, ship.symbol);
                     placed = true;
                 }
+            }
+        }
+    }
+    string serialize() {
+        string data;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                data += grid[i][j];
+            }
+        }
+        return data;
+    }
+    void deserialize(const string &data) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                grid[i][j] = data[i * BOARD_SIZE + j];
             }
         }
     }

@@ -63,15 +63,21 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
         char buffer[1024];
         while (!has_winner) {
             int bytes = recv(sock, buffer, sizeof(buffer) - 1, 0);
-            if (bytes <= 0) break;
-
+            if (bytes <= 0) {
+                has_winner = true;
+                winner = (player == player1) ? player2 : player1;
+                log_event(state, player + " se desconectó, " + winner + " gana por abandono.");
+                return;
+            }
             buffer[bytes] = '\0';
             std::string msg(buffer);
             std::cout << "Mensaje recibido de " << player << ": " << msg << std::endl;
             if (msg == "GAME|WIN") {
                 has_winner = true;
                 winner = player;
-                break;
+            } else{
+                // Aquí puedes manejar otros mensajes del jugador
+                std::cout << "Mensaje no reconocido de " << player << ": " << msg << std::endl;
             }
         }
     };
@@ -84,11 +90,15 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
 
     std::string loser = (winner == player1) ? player2 : player1;
 
-    // Enviar resultados
-    send(state.user_sockets[winner], "GAME|WIN", strlen("GAME|WIN"), 0);
-    send(state.user_sockets[loser], "GAME|LOSE", strlen("GAME|LOSE"), 0);
+    // Enviar resultados con verificación
+    if (send(state.user_sockets[winner], "GAME|WIN", strlen("GAME|WIN"), 0) == SOCKET_ERROR) {
+        log_event(state, "Error enviando GAME|WIN a " + winner);
+    }
+    if (send(state.user_sockets[loser], "GAME|LOSE", strlen("GAME|LOSE"), 0) == SOCKET_ERROR) {
+        log_event(state, "Error enviando GAME|LOSE a " + loser);
+    }
 
-    // Actualizar estado con protección de concurrencia
+    // Actualizar estado
     std::lock_guard<std::mutex> lock(state.game_mutex);
     state.in_game[player1] = false;
     state.in_game[player2] = false;
@@ -98,28 +108,24 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
 
 void matchmaking(ServerState& state) {
     while (true) {
-        std::lock_guard<std::mutex> lock(state.game_mutex); // Proteger acceso a la cola
-        if (state.matchmaking_queue.size() >= 2) {
-            auto it = state.matchmaking_queue.begin();
-            std::string player1 = *it;
-            state.matchmaking_queue.erase(it);
-            it = state.matchmaking_queue.begin();
-            std::string player2 = *it;
-            state.matchmaking_queue.erase(it);
-
-            // Marcar a los jugadores como "en juego"
-            state.in_game[player1] = true;
-            state.in_game[player2] = true;
-
-            // Notificar a los jugadores del emparejamiento
-            send(state.user_sockets[player1], ("MATCH|" + player2).c_str(), strlen("MATCH|FOUND"), 0);
-            send(state.user_sockets[player2], ("MATCH|" + player1).c_str(), strlen("MATCH|FOUND"), 0);
-
-            // Lanzar la partida en un hilo separado
-            std::thread game_thread(start_game, player1, player2, std::ref(state));
-            game_thread.detach(); // El hilo se ejecuta independientemente
+        {
+            std::lock_guard<std::mutex> lock(state.game_mutex);
+            if (state.matchmaking_queue.size() >= 2) {
+                auto it = state.matchmaking_queue.begin();
+                std::string player1 = *it;
+                state.matchmaking_queue.erase(it);
+                it = state.matchmaking_queue.begin();
+                std::string player2 = *it;
+                state.matchmaking_queue.erase(it);
+                state.in_game[player1] = true;
+                state.in_game[player2] = true;
+                send(state.user_sockets[player1], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
+                send(state.user_sockets[player2], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
+                std::thread game_thread(start_game, player1, player2, std::ref(state));
+                game_thread.detach();
+            }
         }
-        std::this_thread::sleep_for(std::chrono::seconds(1)); // Evitar consumo excesivo de CPU
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
