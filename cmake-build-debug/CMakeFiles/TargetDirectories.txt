@@ -1,5 +1,5 @@
-C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/servidor.dir
-C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/cliente.dir
-C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/run_server.dir
-C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Projects/Battleship-MP-Server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/CMakeFiles/servidor.dir
+C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/CMakeFiles/cliente.dir
+C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/CMakeFiles/run_server.dir
+C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/CMakeFiles/rebuild_cache.dir
