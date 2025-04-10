@@ -88,12 +88,6 @@ build CMakeFiles/cliente.dir/client.cpp.obj: CXX_COMPILER__cliente_unscanned_Deb
   OBJECT_DIR = CMakeFiles\cliente.dir
   OBJECT_FILE_DIR = CMakeFiles\cliente.dir
 
-build CMakeFiles/cliente.dir/serverlinux.cpp.obj: CXX_COMPILER__cliente_unscanned_Debug C$:/Projects/Battleship-MP-Server/serverlinux.cpp || cmake_object_order_depends_target_cliente
-  DEP_FILE = CMakeFiles\cliente.dir\serverlinux.cpp.obj.d
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\cliente.dir
-  OBJECT_FILE_DIR = CMakeFiles\cliente.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target cliente
@@ -102,7 +96,7 @@ build CMakeFiles/cliente.dir/serverlinux.cpp.obj: CXX_COMPILER__cliente_unscanne
 #############################################
 # Link the executable cliente.exe
 
-build cliente.exe: CXX_EXECUTABLE_LINKER__cliente_Debug CMakeFiles/cliente.dir/client.cpp.obj CMakeFiles/cliente.dir/serverlinux.cpp.obj
+build cliente.exe: CXX_EXECUTABLE_LINKER__cliente_Debug CMakeFiles/cliente.dir/client.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\cliente.dir

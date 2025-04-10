@@ -32,32 +32,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13071747-b596-4393-b790-2d1723bf07aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/serverlinux.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/query/cache-v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/cache-v2-06707989d069b9073a28.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/cmakeFiles-v1-7914c60891541079bf5a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/codemodel-v2-c2489a22822301658b6c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/index-2025-04-10T19-14-11-0358.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/target-cliente-Debug-7f28c52ab8873ebebdd1.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/target-run_server-Debug-ee51056ea1661931677c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/target-servidor-Debug-bb4ef5750acf116cd238.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/.cmake/api/v1/reply/toolchains-v1-c6d69c457828e177e896.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug-mingw/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/client.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/servidor.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/servidor.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +51,9 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/serverlinux.cpp" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2024" />

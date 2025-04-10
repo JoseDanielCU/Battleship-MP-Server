@@ -248,13 +248,13 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
     if (state.user_sockets.contains(player1)) {
         int result = send(state.user_sockets[player1], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
         if (result == -1) {
-            log_event(state, "Error enviando MATCH a " + player1 + ": " + std::string(stderr(errno)));
+            log_event(state, "Error enviando MATCH a " + player1 + ": " + std::string(strerror(errno)));
         }
     }
     if (state.user_sockets.contains(player2)) {
         int result = send(state.user_sockets[player2], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
         if (result == -1) {
-            log_event(state, "Error enviando MATCH a " + player2 + ": " + std::string(stderr(errno)));
+            log_event(state, "Error enviando MATCH a " + player2 + ": " + std::string(strerror(errno)));
         }
     }
 }
@@ -340,7 +340,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             }
         }
         if (send(client_socket, players_list.c_str(), players_list.size(), 0) == -1) {
-            log_event(state, "Error enviando lista de jugadores a " + logged_user + ": " + std::string(stderr(errno)));
+            log_event(state, "Error enviando lista de jugadores a " + logged_user + ": " + std::string(strerror(errno)));
         } else {
             log_event(state, "Lista de jugadores enviada a " + logged_user);
         }
@@ -448,13 +448,13 @@ void process_protocols(const std::string& command, const std::string& param1, co
             if (state.user_sockets.contains(player1)) {
                 int result = send(state.user_sockets[player1], turn_msg.c_str(), turn_msg.size(), 0);
                 if (result == -1) {
-                    log_event(state, "Error enviando TURN a " + player1 + ": " + std::string(stderr(errno)));
+                    log_event(state, "Error enviando TURN a " + player1 + ": " + std::string(strerror(errno)));
                 }
             }
             if (state.user_sockets.contains(player2)) {
                 int result = send(state.user_sockets[player2], turn_msg.c_str(), turn_msg.size(), 0);
                 if (result == -1) {
-                    log_event(state, "Error enviando TURN a " + player2 + ": " + std::string(stderr(errno)));
+                    log_event(state, "Error enviando TURN a " + player2 + ": " + std::string(strerror(errno)));
                 }
             }
             log_event(state, "Ambos tableros listos, turno inicial: " + current_turn);
@@ -480,7 +480,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::string attack_msg = "ATTACKED|" + param1 + "|" + param2;
             int result = send(state.user_sockets[opponent], attack_msg.c_str(), attack_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando ATTACKED a " + opponent + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando ATTACKED a " + opponent + ": " + std::string(strerror(errno)));
             } else {
                 log_event(state, "ATTACKED enviado a " + opponent + ": " + attack_msg);
             }
@@ -493,7 +493,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::string hit_msg = "HIT|" + param1 + "|" + param2;
             int result = send(client_socket, hit_msg.c_str(), hit_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando HIT a " + logged_user + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando HIT a " + logged_user + ": " + std::string(strerror(errno)));
             } else {
                 log_event(state, logged_user + " acertó en (" + param1 + "," + param2 + ") contra " + opponent);
             }
@@ -504,7 +504,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 std::string sunk_msg = "SUNK|" + sunk_ship;
                 result = send(client_socket, sunk_msg.c_str(), sunk_msg.size(), 0);
                 if (result == -1) {
-                    log_event(state, "Error enviando SUNK a " + logged_user + ": " + std::string(stderr(errno)));
+                    log_event(state, "Error enviando SUNK a " + logged_user + ": " + std::string(strerror(errno)));
                 } else {
                     log_event(state, logged_user + " hundió " + sunk_ship + " de " + opponent);
                 }
@@ -515,7 +515,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 std::string win_msg = "GAME|WIN";
                 int result = send(client_socket, win_msg.c_str(), win_msg.size(), 0);
                 if (result == -1) {
-                    log_event(state, "Error enviando GAME|WIN a " + logged_user + ": " + std::string(stderr(errno)));
+                    log_event(state, "Error enviando GAME|WIN a " + logged_user + ": " + std::string(strerror(errno)));
                 } else {
                     log_event(state, "GAME|WIN enviado a " + logged_user);
                 }
@@ -525,7 +525,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
                     std::string lose_msg = "GAME|LOSE";
                     result = send(state.user_sockets[opponent], lose_msg.c_str(), lose_msg.size(), 0);
                     if (result == -1) {
-                        log_event(state, "Error enviando GAME|LOSE a " + opponent + ": " + std::string(stderr(errno)));
+                        log_event(state, "Error enviando GAME|LOSE a " + opponent + ": " + std::string(strerror(errno)));
                     } else {
                         log_event(state, "GAME|LOSE enviado a " + opponent);
                     }
@@ -553,7 +553,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::string miss_msg = "MISS|" + param1 + "|" + param2;
             int result = send(client_socket, miss_msg.c_str(), miss_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando MISS a " + logged_user + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando MISS a " + logged_user + ": " + std::string(strerror(errno)));
             } else {
                 log_event(state, logged_user + " falló en (" + param1 + "," + param2 + ") contra " + opponent);
             }
@@ -567,7 +567,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         if (state.user_sockets.contains(logged_user)) {
             int result = send(state.user_sockets[logged_user], turn_msg.c_str(), turn_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando TURN a " + logged_user + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando TURN a " + logged_user + ": " + std::string(strerror(errno)));
             } else {
                 log_event(state, "TURN enviado a " + logged_user + ": " + turn_msg);
             }
@@ -577,7 +577,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         if (state.user_sockets.contains(opponent)) {
             int result = send(state.user_sockets[opponent], turn_msg.c_str(), turn_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando TURN a " + opponent + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando TURN a " + opponent + ": " + std::string(strerror(errno)));
                 send(state.user_sockets[logged_user], "GAME|WIN", strlen("GAME|WIN"), 0);
                 state.user_games.erase(game->player1);
                 state.user_games.erase(game->player2);
@@ -594,7 +594,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::string win_msg = "GAME|WIN";
             int result = send(state.user_sockets[logged_user], win_msg.c_str(), win_msg.size(), 0);
             if (result == -1) {
-                log_event(state, "Error enviando GAME|WIN por desconexión a " + logged_user + ": " + std::string(stderr(errno)));
+                log_event(state, "Error enviando GAME|WIN por desconexión a " + logged_user + ": " + std::string(strerror(errno)));
             }
             log_event(state, "Oponente " + opponent + " desconectado, victoria para " + logged_user);
             state.user_games.erase(game->player1);
@@ -623,11 +623,11 @@ void handle_client(int client_socket, ServerState& state) {
             if (!logged_user.empty()) {
                 process_protocols("LOGOUT", logged_user, "", client_socket, logged_user, state);
                 log_event(state, "Usuario desconectado y deslogueado: " + logged_user + " (recv falló con " +
-                          std::to_string(bytes_read) + ", error: " + std::string(stderr(errno)) + ")");
+                          std::to_string(bytes_read) + ", error: " + std::string(strerror(errno)) + ")");
                 std::cout << "Cliente desconectado y deslogueado: " << logged_user << std::endl;
             } else {
                 log_event(state, "Cliente anónimo desconectado (recv falló con " + std::to_string(bytes_read) +
-                          ", error: " + std::string(stderr(errno)) + ")");
+                          ", error: " + std::string(strerror(errno)) + ")");
                 std::cout << "Cliente anónimo desconectado." << std::endl;
             }
             close(client_socket);
@@ -678,14 +678,14 @@ int main(int argc, char* argv[]) {
 
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1) {
-        std::cerr << "Error al crear socket: " << stderr(errno) << std::endl;
+        std::cerr << "Error al crear socket: " << strerror(errno) << std::endl;
         return 1;
     }
 
     // Allow port reuse
     int opt = 1;
     if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) {
-        std::cerr << "Error al configurar SO_REUSEADDR: " << stderr(errno) << std::endl;
+        std::cerr << "Error al configurar SO_REUSEADDR: " << strerror(errno) << std::endl;
         close(server_socket);
         return 1;
     }
@@ -698,13 +698,13 @@ int main(int argc, char* argv[]) {
     }
 
     if (bind(server_socket, (struct sockaddr*)&address, sizeof(address)) == -1) {
-        std::cerr << "Error al bind: " << stderr(errno) << std::endl;
+        std::cerr << "Error al bind: " << strerror(errno) << std::endl;
         close(server_socket);
         return 1;
     }
 
     if (listen(server_socket, MAX_CLIENTS) == -1) {
-        std::cerr << "Error al listen: " << stderr(errno) << std::endl;
+        std::cerr << "Error al listen: " << strerror(errno) << std::endl;
         close(server_socket);
         return 1;
     }
@@ -720,7 +720,7 @@ int main(int argc, char* argv[]) {
         int new_socket = accept(server_socket, nullptr, nullptr);
         if (new_socket == -1) {
             if (server_running) {
-                std::cerr << "Error al aceptar conexión: " << stderr(errno) << std::endl;
+                std::cerr << "Error al aceptar conexión: " << strerror(errno) << std::endl;
             }
             continue;
         }

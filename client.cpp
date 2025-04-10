@@ -662,7 +662,7 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
     int main() {
         SetConsoleOutputCP(CP_UTF8);
         std::cin.tie(nullptr);
-        const std::string server_ip = "127.0.0.1";
+        const std::string server_ip = "3.92.237.93";
         const int server_port = 8080;
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
