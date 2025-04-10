@@ -20,6 +20,7 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="Battleship_MP_Project" targetName="run_server" />
+      <config projectName="Battleship_MP_Project" targetName="board" />
       <config projectName="Battleship_MP_Project" targetName="cliente" />
       <config projectName="Battleship_MP_Project" targetName="servidor" />
     </generated>
@@ -30,7 +31,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="13071747-b596-4393-b790-2d1723bf07aa" name="Changes" comment="" />
+=======
+    <list default="true" id="b61ebc1c-0b22-4ae4-8ce9-949411070d90" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" afterDir="false" />
+    </list>
+>>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +55,21 @@
     <option name="minorVersion" value="3.3" />
     <option name="productBranch" value="Classic" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JoseDanielCU&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JoseDanielCU/Battleship-MP-Server.git&quot;,
+    &quot;accountId&quot;: &quot;f54c361a-edbd-4573-8edf-091a1d04b106&quot;
+  }
+}</component>
+>>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -55,6 +79,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;CMake Application.Battleship_MP_Server_development_clientSetUpBoard.executor&quot;: &quot;Run&quot;,
@@ -87,6 +112,39 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.cliente">
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "CMake Application.board.executor": "Run",
+    "CMake Application.cliente.executor": "Run",
+    "CMake Application.run_server.executor": "Run",
+    "CMake Application.servidor.executor": "Run",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "development-clientSetUpBoard",
+    "last_opened_file_path": "F:/BattleShip-MP-Server FinalBuild",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="CMake Application.cliente">
+    <configuration name="board" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="board" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Battleship_MP_Project" RUN_TARGET_NAME="board">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
     <configuration name="cliente" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="cliente" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Battleship_MP_Project" RUN_TARGET_NAME="cliente">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -103,6 +161,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="CMake Application.board" />
       <item itemvalue="CMake Application.cliente" />
       <item itemvalue="CMake Application.run_server" />
       <item itemvalue="CMake Application.servidor" />
@@ -115,10 +174,22 @@
       <created>1744295402796</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1744295402796</updated>
       <workItem from="1744295404150" duration="2810000" />
       <workItem from="1744299329646" duration="1563000" />
       <workItem from="1744311922405" duration="4000" />
+=======
+      <updated>1743709357079</updated>
+      <workItem from="1743709358525" duration="1932000" />
+      <workItem from="1743711841293" duration="2788000" />
+      <workItem from="1743714669836" duration="315000" />
+      <workItem from="1743715662724" duration="604000" />
+      <workItem from="1744050671625" duration="16457000" />
+      <workItem from="1744131074360" duration="7148000" />
+      <workItem from="1744145576375" duration="19616000" />
+      <workItem from="1744242705053" duration="14131000" />
+>>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
     </task>
     <servers />
   </component>

@@ -52,10 +52,10 @@ RM = C:\Users\MLGda\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Projects\Battleship-MP-Server
+CMAKE_SOURCE_DIR = F:\Battleship-MP-Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Projects\Battleship-MP-Server\cmake-build-debug
+CMAKE_BINARY_DIR = F:\Battleship-MP-Server\cmake-build-debug
 
 # Utility rule file for run_server.
 
@@ -66,7 +66,7 @@ include CMakeFiles/run_server.dir/compiler_depend.make
 include CMakeFiles/run_server.dir/progress.make
 
 CMakeFiles/run_server: servidor.exe
-	C:\Projects\Battleship-MP-Server\cmake-build-debug.\servidor.exe 127.0.0.1 8080 C:/Projects/Battleship-MP-Server/cmake-build-debug/log.log
+	F:\Battleship-MP-Server\cmake-build-debug.\servidor.exe 127.0.0.1 8080 F:/Battleship-MP-Server/cmake-build-debug/log.log
 
 run_server: CMakeFiles/run_server
 run_server: CMakeFiles/run_server.dir/build.make
@@ -81,6 +81,6 @@ CMakeFiles/run_server.dir/clean:
 .PHONY : CMakeFiles/run_server.dir/clean
 
 CMakeFiles/run_server.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Projects\Battleship-MP-Server C:\Projects\Battleship-MP-Server C:\Projects\Battleship-MP-Server\cmake-build-debug C:\Projects\Battleship-MP-Server\cmake-build-debug C:\Projects\Battleship-MP-Server\cmake-build-debug\CMakeFiles\run_server.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\Battleship-MP-Server F:\Battleship-MP-Server F:\Battleship-MP-Server\cmake-build-debug F:\Battleship-MP-Server\cmake-build-debug F:\Battleship-MP-Server\cmake-build-debug\CMakeFiles\run_server.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/run_server.dir/depend
 

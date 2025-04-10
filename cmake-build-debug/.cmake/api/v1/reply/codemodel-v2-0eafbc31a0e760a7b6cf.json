@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -43,21 +43,21 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "cliente::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-cliente-Debug-7f28c52ab8873ebebdd1.json",
+					"jsonFile" : "target-cliente-Debug-e1c5adaea9cc0366da75.json",
 					"name" : "cliente",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "run_server::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-run_server-Debug-1a67c5ee35ac1795bf1b.json",
+					"jsonFile" : "target-run_server-Debug-f017ad29a0be4ea39e00.json",
 					"name" : "run_server",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "servidor::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-servidor-Debug-bb4ef5750acf116cd238.json",
+					"jsonFile" : "target-servidor-Debug-4c553f441b711cc872ff.json",
 					"name" : "servidor",
 					"projectIndex" : 0
 				}
@@ -67,8 +67,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Projects/Battleship-MP-Server/cmake-build-debug",
-		"source" : "C:/Projects/Battleship-MP-Server"
+		"build" : "/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server/cmake-build-debug",
+		"source" : "/Users/felipeflorez/Desktop/telematica/Battleship-MP-Server"
 	},
 	"version" : 
 	{
