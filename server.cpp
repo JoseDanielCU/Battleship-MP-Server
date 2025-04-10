@@ -14,10 +14,10 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #define MAX_CLIENTS 100
-const int BOARD_SIZE = 10;
-const char WATER = '~';
-const char HIT = 'X';
-const char MISS = 'O';
+constexpr int BOARD_SIZE = 10;
+constexpr char WATER = '~';
+constexpr char HIT = 'X';
+constexpr char MISS = 'O';
 
 struct Ship {
     std::string name;
@@ -66,7 +66,7 @@ public:
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (grid[i][j] != WATER && grid[i][j] != HIT && grid[i][j] != MISS) {
-                    symbol_to_positions[grid[i][j]].push_back({i, j});
+                    symbol_to_positions[grid[i][j]].emplace_back(i, j);
                 }
             }
         }
@@ -107,11 +107,11 @@ public:
         }
     }
 
-    bool isHit(int x, int y) {
+    bool isHit(int x, int y) const {
         return grid[x][y] != WATER && grid[x][y] != HIT && grid[x][y] != MISS;
     }
 
-    char getSymbol(int x, int y) {
+    char getSymbol(int x, int y) const {
         return grid[x][y];
     }
 
@@ -166,7 +166,7 @@ public:
         return true;
     }
 
-    int countShips() {
+    int countShips() const {
         int total_length = 0;
         for (const auto& ship : ships) {
             total_length += ship.size;
@@ -213,7 +213,7 @@ void log_event(ServerState& state, const std::string& event) {
     std::lock_guard<std::mutex> lock(state.log_mutex);
     std::ofstream log_file(state.log_path, std::ios::app);
     if (log_file.is_open()) {
-        time_t now = time(0);
+        time_t now = time(nullptr);
         char* dt = ctime(&now);
         dt[strlen(dt) - 1] = '\0';
         log_file << "[" << dt << "] " << event << std::endl;
@@ -241,13 +241,13 @@ void start_game(const std::string& player1, const std::string& player2, ServerSt
     state.user_games[player2] = game;
     log_event(state, "Partida iniciada: " + player1 + " vs " + player2);
 
-    if (state.user_sockets.find(player1) != state.user_sockets.end()) {
+    if (state.user_sockets.contains(player1)) {
         int result = send(state.user_sockets[player1], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
         if (result == SOCKET_ERROR) {
             log_event(state, "Error enviando MATCH a " + player1 + ": " + std::to_string(WSAGetLastError()));
         }
     }
-    if (state.user_sockets.find(player2) != state.user_sockets.end()) {
+    if (state.user_sockets.contains(player2)) {
         int result = send(state.user_sockets[player2], "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
         if (result == SOCKET_ERROR) {
             log_event(state, "Error enviando MATCH a " + player2 + ": " + std::to_string(WSAGetLastError()));
@@ -271,15 +271,15 @@ void matchmaking(ServerState& state) {
         }
         if (!player1.empty() && !player2.empty()) {
             std::lock_guard<std::mutex> user_lock(state.user_mutex);
-            if (state.user_sockets.find(player1) != state.user_sockets.end() &&
-                state.user_sockets.find(player2) != state.user_sockets.end()) {
+            if (state.user_sockets.contains(player1) &&
+                state.user_sockets.contains(player2)) {
                 start_game(player1, player2, state);
             } else {
                 std::lock_guard<std::mutex> lock(state.matchmaking_mutex);
-                if (state.user_sockets.find(player1) != state.user_sockets.end()) {
+                if (state.user_sockets.contains(player1)) {
                     state.matchmaking_queue.insert(player1);
                 }
-                if (state.user_sockets.find(player2) != state.user_sockets.end()) {
+                if (state.user_sockets.contains(player2)) {
                     state.matchmaking_queue.insert(player2);
                 }
             }
@@ -293,7 +293,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         std::string username = param1;
         std::string password = param2;
         std::lock_guard<std::mutex> lock(state.user_mutex);
-        if (state.user_db.find(username) == state.user_db.end()) {
+        if (!state.user_db.contains(username)) {
             state.user_db[username] = password;
             save_user(username, password);
             send(client_socket, "REGISTER|SUCCESSFUL", strlen("REGISTER|SUCCESSFUL"), 0);
@@ -306,10 +306,10 @@ void process_protocols(const std::string& command, const std::string& param1, co
         std::string username = param1;
         std::string password = param2;
         std::lock_guard<std::mutex> lock(state.user_mutex);
-        if (state.user_db.find(username) == state.user_db.end() || state.user_db[username] != password) {
+        if (!state.user_db.contains(username) || state.user_db[username] != password) {
             send(client_socket, "LOGIN|ERROR", strlen("LOGIN|ERROR"), 0);
             log_event(state, "Intento de login fallido: Credenciales incorrectas - " + username);
-        } else if (state.active_users.count(username) > 0) {
+        } else if (state.active_users.contains(username)) {
             send(client_socket, "LOGIN|ERROR|YA_CONECTADO", strlen("LOGIN|ERROR|YA_CONECTADO"), 0);
             log_event(state, "Intento de login fallido: Usuario ya conectado - " + username);
         } else {
@@ -327,9 +327,9 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::lock_guard<std::mutex> matchmaking_lock(state.matchmaking_mutex);
             for (const auto& user : state.active_users) {
                 std::string status = "(Conectado)";
-                if (state.user_games.find(user) != state.user_games.end()) {
+                if (state.user_games.contains(user)) {
                     status = "(En juego)";
-                } else if (state.matchmaking_queue.find(user) != state.matchmaking_queue.end()) {
+                } else if (state.matchmaking_queue.contains(user)) {
                     status = "(Buscando partida)";
                 }
                 players_list += user + " " + status + "\n";
@@ -343,7 +343,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
     } else if (command == "QUEUE") {
         std::lock_guard<std::mutex> game_lock(state.game_mutex);
         std::lock_guard<std::mutex> matchmaking_lock(state.matchmaking_mutex);
-        if (state.user_games.find(logged_user) == state.user_games.end()) {
+        if (!state.user_games.contains(logged_user)) {
             state.matchmaking_queue.insert(logged_user);
             send(client_socket, "QUEUE|OK", strlen("QUEUE|OK"), 0);
             log_event(state, logged_user + " ha entrado en cola para jugar");
@@ -357,24 +357,24 @@ void process_protocols(const std::string& command, const std::string& param1, co
         log_event(state, logged_user + " salió de la cola de emparejamiento.");
     } else if (command == "CHECK_MATCH") {
         std::lock_guard<std::mutex> lock(state.game_mutex);
-        if (state.user_games.find(logged_user) != state.user_games.end()) {
+        if (state.user_games.contains(logged_user)) {
             send(client_socket, "MATCH|FOUND", strlen("MATCH|FOUND"), 0);
         } else {
             send(client_socket, "MATCH|NOT_FOUND", strlen("MATCH|NOT_FOUND"), 0);
         }
     } else if (command == "LOGOUT") {
         std::lock_guard<std::mutex> game_lock(state.game_mutex);
-        if (state.user_games.find(logged_user) != state.user_games.end()) {
+        if (state.user_games.contains(logged_user)) {
             Game* game = state.user_games[logged_user];
             std::string opponent = (game->player1 == logged_user) ? game->player2 : game->player1;
-            if (state.user_sockets.find(opponent) != state.user_sockets.end()) {
+            if (state.user_sockets.contains(opponent)) {
                 send(state.user_sockets[opponent], "GAME|WIN", strlen("GAME|WIN"), 0);
                 log_event(state, opponent + " gana por abandono de " + logged_user);
             }
             // Limpiar el juego directamente
             state.user_games.erase(game->player1);
             state.user_games.erase(game->player2);
-            auto it = std::find(state.games.begin(), state.games.end(), game);
+            auto it = std::ranges::find(state.games, game);
             if (it != state.games.end()) {
                 state.games.erase(it);
             }
@@ -442,13 +442,13 @@ void process_protocols(const std::string& command, const std::string& param1, co
         if (both_boards_ready) {
             std::string turn_msg = "TURN|" + current_turn;
             log_event(state, "Enviando TURN a ambos jugadores: " + turn_msg);
-            if (state.user_sockets.find(player1) != state.user_sockets.end()) {
+            if (state.user_sockets.contains(player1)) {
                 int result = send(state.user_sockets[player1], turn_msg.c_str(), turn_msg.size(), 0);
                 if (result == SOCKET_ERROR) {
                     log_event(state, "Error enviando TURN a " + player1 + ": " + std::to_string(WSAGetLastError()));
                 }
             }
-            if (state.user_sockets.find(player2) != state.user_sockets.end()) {
+            if (state.user_sockets.contains(player2)) {
                 int result = send(state.user_sockets[player2], turn_msg.c_str(), turn_msg.size(), 0);
                 if (result == SOCKET_ERROR) {
                     log_event(state, "Error enviando TURN a " + player2 + ": " + std::to_string(WSAGetLastError()));
@@ -460,7 +460,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         int x_coord = std::stoi(param1);
         int y_coord = std::stoi(param2);
         std::lock_guard<std::mutex> lock(state.game_mutex);
-        if (state.user_games.find(logged_user) == state.user_games.end()) {
+        if (!state.user_games.contains(logged_user)) {
             send(client_socket, "INVALID|NOT_IN_GAME", strlen("INVALID|NOT_IN_GAME"), 0);
             return;
         }
@@ -473,7 +473,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         Board& target_board = (game->player1 == logged_user) ? game->board2 : game->board1;
         std::string opponent = (game->player1 == logged_user) ? game->player2 : game->player1;
 
-        if (state.user_sockets.find(opponent) != state.user_sockets.end()) {
+        if (state.user_sockets.contains(opponent)) {
             std::string attack_msg = "ATTACKED|" + param1 + "|" + param2;
             int result = send(state.user_sockets[opponent], attack_msg.c_str(), attack_msg.size(), 0);
             if (result == SOCKET_ERROR) {
@@ -485,7 +485,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
         }
 
         if (target_board.isHit(x_coord, y_coord)) {
-            char symbol = target_board.getSymbol(x_coord, y_coord);
             target_board.setHit(x_coord, y_coord);
 
             std::string hit_msg = "HIT|" + param1 + "|" + param2;
@@ -511,7 +510,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
 
             if (target_board.allShipsSunk()) {
                 std::string win_msg = "GAME|WIN";
-                result = send(client_socket, win_msg.c_str(), win_msg.size(), 0);
+                int result = send(client_socket, win_msg.c_str(), win_msg.size(), 0);
                 if (result == SOCKET_ERROR) {
                     log_event(state, "Error enviando GAME|WIN a " + logged_user + ": " + std::to_string(WSAGetLastError()));
                 } else {
@@ -519,7 +518,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-                if (state.user_sockets.find(opponent) != state.user_sockets.end()) {
+                if (state.user_sockets.contains(opponent)) {
                     std::string lose_msg = "GAME|LOSE";
                     result = send(state.user_sockets[opponent], lose_msg.c_str(), lose_msg.size(), 0);
                     if (result == SOCKET_ERROR) {
@@ -530,14 +529,22 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 }
                 log_event(state, "Partida finalizada: " + logged_user + " ganó contra " + opponent);
 
-                // Limpiar el juego directamente
+                // Limpiar el juego pero mantener a los usuarios activos
                 state.user_games.erase(game->player1);
                 state.user_games.erase(game->player2);
-                auto it = std::find(state.games.begin(), state.games.end(), game);
+                auto it = std::ranges::find(state.games, game);
                 if (it != state.games.end()) {
                     state.games.erase(it);
                 }
                 delete game;
+
+                // Enviar mensaje explícito para volver al menú principal
+                if (state.user_sockets.contains(logged_user)) {
+                    send(state.user_sockets[logged_user], "GAME|ENDED", strlen("GAME|ENDED"), 0);
+                }
+                if (state.user_sockets.contains(opponent)) {
+                    send(state.user_sockets[opponent], "GAME|ENDED", strlen("GAME|ENDED"), 0);
+                }
                 return;
             }
         } else {
@@ -556,7 +563,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
         std::string turn_msg = "TURN|" + opponent;
         log_event(state, "Preparando envío de TURN a ambos jugadores: " + turn_msg);
 
-        if (state.user_sockets.find(logged_user) != state.user_sockets.end()) {
+        if (state.user_sockets.contains(logged_user)) {
             int result = send(state.user_sockets[logged_user], turn_msg.c_str(), turn_msg.size(), 0);
             if (result == SOCKET_ERROR) {
                 log_event(state, "Error enviando TURN a " + logged_user + ": " + std::to_string(WSAGetLastError()));
@@ -566,7 +573,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
 
-        if (state.user_sockets.find(opponent) != state.user_sockets.end()) {
+        if (state.user_sockets.contains(opponent)) {
             int result = send(state.user_sockets[opponent], turn_msg.c_str(), turn_msg.size(), 0);
             if (result == SOCKET_ERROR) {
                 log_event(state, "Error enviando TURN a " + opponent + ": " + std::to_string(WSAGetLastError()));
@@ -574,7 +581,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 // Limpiar el juego directamente
                 state.user_games.erase(game->player1);
                 state.user_games.erase(game->player2);
-                auto it = std::find(state.games.begin(), state.games.end(), game);
+                auto it = std::ranges::find(state.games, game);
                 if (it != state.games.end()) {
                     state.games.erase(it);
                 }
@@ -593,7 +600,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
             // Limpiar el juego directamente
             state.user_games.erase(game->player1);
             state.user_games.erase(game->player2);
-            auto it = std::find(state.games.begin(), state.games.end(), game);
+            auto it = std::ranges::find(state.games, game);
             if (it != state.games.end()) {
                 state.games.erase(it);
             }
@@ -605,7 +612,7 @@ void process_protocols(const std::string& command, const std::string& param1, co
 
 void handle_client(SOCKET client_socket, ServerState& state) {
     char buffer[4096] = {0};
-    std::string logged_user = "";
+    std::string logged_user;
 
     u_long mode = 0;
     ioctlsocket(client_socket, FIONBIO, &mode);

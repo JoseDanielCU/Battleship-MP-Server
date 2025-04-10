@@ -401,15 +401,19 @@ void start_game(SOCKET client_socket, const std::string& clientIP, const std::st
                     player_board.display();
                     std::cout << "\nTablero del oponente:\n";
                     opponent_board.display(true);
-                } else if (command == "GAME") {
+                }else if (command == "GAME") {
                     system("cls");
                     if (arg1 == "WIN") {
                         std::cout << "==================================\n";
                         std::cout << "  ¡GANASTE LA PARTIDA!\n";
                         std::cout << "==================================\n";
-                    } else {
+                    } else if (arg1 == "LOSE") {
                         std::cout << "==================================\n";
                         std::cout << "  ¡Perdiste! El oponente ganó.\n";
+                        std::cout << "==================================\n";
+                    } else if (arg1 == "ENDED") {
+                        std::cout << "==================================\n";
+                        std::cout << "  Partida finalizada.\n";
                         std::cout << "==================================\n";
                     }
                     std::cout << "Presione Enter para volver al menú principal...";
@@ -417,7 +421,7 @@ void start_game(SOCKET client_socket, const std::string& clientIP, const std::st
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cin.get();
                     game_active = false;
-                    return;
+                    break;
                 }
             }
         } while (bytes_received > 0 && game_active);
@@ -622,7 +626,7 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
     int main() {
         SetConsoleOutputCP(CP_UTF8);
         std::cin.tie(nullptr);
-        const std::string server_ip = "127.0.0.1";
+        const std::string server_ip = "44.197.214.160";
         const int server_port = 8080;
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
