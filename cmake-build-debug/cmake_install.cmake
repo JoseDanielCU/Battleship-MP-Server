@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-# Install script for directory: C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard
-=======
-# Install script for directory: F:/Battleship-MP-Server
->>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
+# Install script for directory: C:/Projects/Battleship-MP-Server
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Battleship_MP_Server_development_clientSetUpBoard")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Battleship_MP_Project")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -56,10 +52,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-<<<<<<< HEAD
-  file(WRITE "C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
-=======
-  file(WRITE "F:/Battleship-MP-Server/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
->>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
+  file(WRITE "C:/Projects/Battleship-MP-Server/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

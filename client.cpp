@@ -16,7 +16,6 @@
 #define HIT 'X'
 #define MISS 'O'
 
-<<<<<<< HEAD
 
 struct Ship {
     std::string name;
@@ -30,7 +29,7 @@ std::vector<Ship> ships = {
     {"Cruiser", 3, 'C'}, {"Cruiser", 3, 'C'},
     {"Destroyer", 2, 'D'}, {"Destroyer", 2, 'D'},
     {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}
-};w
+};
 
 class Board {
 public:
@@ -205,164 +204,6 @@ void manualPlacement() {
             return;
         }
 
-=======
-const int BOARD_SIZE = 10;
-const char WATER = '~';
-const char HIT = 'X';
-const char MISS = 'O';
-
-struct Ship {
-    std::string name;
-    int size;
-    char symbol;
-};
-
-std::vector<Ship> ships = {
-    {"Aircraft Carrier", 5, 'A'},
-    {"Battleship", 4, 'B'},
-    {"Cruiser", 3, 'C'}, {"Cruiser", 3, 'C'},
-    {"Destroyer", 2, 'D'}, {"Destroyer", 2, 'D'},
-    {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}
-};
-
-class Board {
-public:
-    std::vector<std::vector<char>> grid;
-
-    Board() {
-        grid.resize(BOARD_SIZE, std::vector<char>(BOARD_SIZE, WATER));
-    }
-
-    void display(bool hide_ships = false) {
-        std::cout << "   ";
-        for (int i = 0; i < BOARD_SIZE; i++) std::cout << i << "  ";
-        std::cout << std::endl;
-
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            std::cout << i << "  ";
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                char c = grid[i][j];
-                if (hide_ships && c != HIT && c != MISS && c != WATER) c = WATER;
-                std::cout << c << "  ";
-            }
-            std::cout << std::endl;
-        }
-    }
-
-    bool canPlaceShip(int x, int y, int size, char direction) {
-        if (direction == 'H') {
-            if (y + size > BOARD_SIZE) return false;
-            for (int i = 0; i < size; i++)
-                if (grid[x][y + i] != WATER) return false;
-        } else {
-            if (x + size > BOARD_SIZE) return false;
-            for (int i = 0; i < size; i++)
-                if (grid[x + i][y] != WATER) return false;
-        }
-        return true;
-    }
-
-    void placeShip(int x, int y, int size, char direction, char symbol) {
-        for (int i = 0; i < size; i++) {
-            if (direction == 'H')
-                grid[x][y + i] = symbol;
-            else
-                grid[x + i][y] = symbol;
-        }
-    }
-
-    void manualPlacement() {
-        for (const auto &ship : ships) {
-            int x, y;
-            char direction;
-            bool placed = false;
-
-            while (!placed) {
-                system("cls");
-                display();
-                std::cout << "Colocando " << ship.name << " (" << ship.size << " casillas)." << std::endl;
-                std::cout << "Ingrese fila inicial: ";
-                std::cin >> x;
-                std::cout << "Ingrese columna inicial: ";
-                std::cin >> y;
-                std::cout << "Ingrese dirección (H/V): ";
-                std::cin >> direction;
-                direction = toupper(direction);
-                std::cin.ignore();
-
-                if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && (direction == 'H' || direction == 'V')) {
-                    if (canPlaceShip(x, y, ship.size, direction)) {
-                        placeShip(x, y, ship.size, direction, ship.symbol);
-                        placed = true;
-                    } else {
-                        std::cout << "No se puede colocar el barco ahí. Presione Enter para intentar de nuevo.";
-                        std::cin.get();
-                    }
-                } else {
-                    std::cout << "Entrada inválida. Presione Enter para intentar de nuevo.";
-                        std::cin.get();
-                    }
-                }
-            }
-        }
-
-        void randomPlacement() {
-            srand(time(0));
-            for (const auto &ship : ships) {
-                int x, y;
-                char direction;
-                bool placed = false;
-
-                while (!placed) {
-                    x = rand() % BOARD_SIZE;
-                    y = rand() % BOARD_SIZE;
-                    direction = (rand() % 2 == 0) ? 'H' : 'V';
-
-                    if (canPlaceShip(x, y, ship.size, direction)) {
-                        placeShip(x, y, ship.size, direction, ship.symbol);
-                        placed = true;
-                    }
-                }
-            }
-        }
-
-        std::string serialize() {
-            std::string data;
-            for (int i = 0; i < BOARD_SIZE; i++) {
-                for (int j = 0; j < BOARD_SIZE; j++) {
-                    data += grid[i][j];
-                }
-            }
-            return data;
-        }
-
-    };
-
-    void draw_menu(const std::string& title, const std::vector<std::string>& options) {
-        system("cls");
-        const int width = 40;
-        std::string border = std::string(width, '=');
-
-        std::cout << border << std::endl;
-        std::cout << std::setw(width) << std::left << "  " + title << std::endl;
-        std::cout << border << std::endl;
-
-        for (size_t i = 0; i < options.size(); ++i) {
-            std::cout << "  " << i + 1 << ". " << options[i] << std::endl;
-        }
-
-        std::cout << border << std::endl;
-        std::cout << "Seleccione una opción: ";
-    }
-
-    void log_event(const std::string& clientIP, const std::string& query, const std::string& response) {
-        std::ofstream log_file("log.log", std::ios::app);
-        if (!log_file.is_open()) {
-            std::cerr << "Error: No se pudo abrir el archivo de log." << std::endl;
-            return;
-        }
-
->>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
         time_t now = time(0);
         struct tm tstruct;
         char date_buf[11];
@@ -821,11 +662,7 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
     int main() {
         SetConsoleOutputCP(CP_UTF8);
         std::cin.tie(nullptr);
-<<<<<<< HEAD
         const std::string server_ip = "127.0.0.1";
-=======
-        const std::string server_ip = "44.197.214.160";
->>>>>>> a59772ab35ca9096a3ef7cb02214e9e89a240373
         const int server_port = 8080;
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
