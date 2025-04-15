@@ -18,10 +18,10 @@
 #include <cstring>
 
 #define MAX_CLIENTS 100
-constexpr int BOARD_SIZE = 10;
-constexpr char WATER = '~';
-constexpr char HIT = 'X';
-constexpr char MISS = 'O';
+#define BOARD_SIZE  10
+#define WATER '~'
+#define HIT 'X'
+#define MISS 'O'
 
 struct Ship {
     std::string name;
