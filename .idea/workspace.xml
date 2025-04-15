@@ -21,7 +21,6 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="Battleship_MP_Project" targetName="run_server" />
-      <config projectName="Battleship_MP_Project" targetName="board" />
       <config projectName="Battleship_MP_Project" targetName="cliente" />
       <config projectName="Battleship_MP_Project" targetName="servidor" />
     </generated>
@@ -32,9 +31,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b61ebc1c-0b22-4ae4-8ce9-949411070d90" name="Changes" comment="">
+    <list default="true" id="13071747-b596-4393-b790-2d1723bf07aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/client.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,63 +51,60 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="development-BoardSetup" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/serverlinux.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;JoseDanielCU&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/JoseDanielCU/Battleship-MP-Server.git&quot;,
-    &quot;accountId&quot;: &quot;f54c361a-edbd-4573-8edf-091a1d04b106&quot;
-  }
-}</component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2024" />
+    <option name="minorVersion" value="3.3" />
+    <option name="productBranch" value="Classic" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2upAumNWnXzB1b1ZNOzT6OQ7QKj" />
+  <component name="ProjectId" id="2vXdYsKvRc1JvuubufuAXPurKSd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "CMake Application.board.executor": "Run",
+    "CMake Application.Battleship_MP_Server_development_clientSetUpBoard.executor": "Run",
     "CMake Application.cliente.executor": "Run",
-    "CMake Application.run_server.executor": "Run",
     "CMake Application.servidor.executor": "Run",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.west.config.association.type.startup.service": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "development-clientSetUpBoard",
-    "last_opened_file_path": "F:/BattleShip-MP-Server FinalBuild",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "C:/Users/MLGda/Downloads/Battleship-MP-Server-development-clientSetUpBoard/cmake-build-debug",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MLGda\Downloads\Battleship-MP-Server-development-clientSetUpBoard\cmake-build-debug" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MLGda\Downloads\Battleship-MP-Server-development-clientSetUpBoard" />
+      <recent name="C:\Users\MLGda\Downloads\Battleship-MP-Server-development-clientSetUpBoard\Battleship-MP-Server-development-clientSetUpBoard" />
+      <recent name="C:\Users\MLGda\Downloads\Battleship-MP-Server-development-clientSetUpBoard\Battleship-MP-Server-development-clientSetUpBoard\cmake-build-debug" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake Application.cliente">
-    <configuration name="board" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="board" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Battleship_MP_Project" RUN_TARGET_NAME="board">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="cliente" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="cliente" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Battleship_MP_Project" RUN_TARGET_NAME="cliente">
@@ -110,7 +112,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="run_server" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="127.0.0.1 8080 log.log" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="run_server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Battleship_MP_Project" RUN_TARGET_NAME="servidor">
+    <configuration name="run_server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Battleship_MP_Project" TARGET_NAME="run_server" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -121,7 +123,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.board" />
       <item itemvalue="CMake Application.cliente" />
       <item itemvalue="CMake Application.run_server" />
       <item itemvalue="CMake Application.servidor" />
@@ -130,19 +131,15 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b61ebc1c-0b22-4ae4-8ce9-949411070d90" name="Changes" comment="" />
-      <created>1743709357079</created>
+      <changelist id="13071747-b596-4393-b790-2d1723bf07aa" name="Changes" comment="" />
+      <created>1744295402796</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1743709357079</updated>
-      <workItem from="1743709358525" duration="1932000" />
-      <workItem from="1743711841293" duration="2788000" />
-      <workItem from="1743714669836" duration="315000" />
-      <workItem from="1743715662724" duration="604000" />
-      <workItem from="1744050671625" duration="16457000" />
-      <workItem from="1744131074360" duration="7148000" />
-      <workItem from="1744145576375" duration="19616000" />
-      <workItem from="1744242705053" duration="14131000" />
+      <updated>1744295402796</updated>
+      <workItem from="1744295404150" duration="2810000" />
+      <workItem from="1744299329646" duration="1563000" />
+      <workItem from="1744311922405" duration="454000" />
+      <workItem from="1744312393894" duration="449000" />
     </task>
     <servers />
   </component>

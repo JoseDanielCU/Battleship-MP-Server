@@ -11,11 +11,11 @@
 #include <sstream>
 
 #pragma comment(lib, "ws2_32.lib")
+#define BOARD_SIZE 10
+#define WATER '~'
+#define HIT 'X'
+#define MISS 'O'
 
-const int BOARD_SIZE = 10;
-const char WATER = '~';
-const char HIT = 'X';
-const char MISS = 'O';
 
 struct Ship {
     std::string name;
@@ -77,40 +77,76 @@ public:
         }
     }
 
-    void manualPlacement() {
-        for (const auto &ship : ships) {
-            int x, y;
-            char direction;
-            bool placed = false;
+void manualPlacement() {
+    for (const auto &ship : ships) {
+        int x, y;
+        char direction;
+        bool placed = false;
 
-            while (!placed) {
-                system("cls");
-                display();
-                std::cout << "Colocando " << ship.name << " (" << ship.size << " casillas)." << std::endl;
-                std::cout << "Ingrese fila inicial: ";
-                std::cin >> x;
-                std::cout << "Ingrese columna inicial: ";
-                std::cin >> y;
-                std::cout << "Ingrese dirección (H/V): ";
-                std::cin >> direction;
-                direction = toupper(direction);
-                std::cin.ignore();
+        while (!placed) {
+            system("cls");
+            display();
+            std::cout << "Colocando " << ship.name << " (" << ship.size << " casillas)." << std::endl;
 
-                if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && (direction == 'H' || direction == 'V')) {
-                    if (canPlaceShip(x, y, ship.size, direction)) {
-                        placeShip(x, y, ship.size, direction, ship.symbol);
-                        placed = true;
-                    } else {
-                        std::cout << "No se puede colocar el barco ahí. Presione Enter para intentar de nuevo.";
-                        std::cin.get();
-                    }
-                } else {
-                    std::cout << "Entrada inválida. Presione Enter para intentar de nuevo.";
-                        std::cin.get();
-                    }
+            std::cout << "Ingrese fila inicial (0-9): ";
+            std::string input;
+            std::getline(std::cin, input);
+
+            try {
+                x = std::stoi(input);
+                if (x < 0 || x >= BOARD_SIZE) {
+                    std::cout << "Fila inválida. Debe estar entre 0 y 9. Presione Enter para intentar de nuevo.";
+                    std::cin.get();
+                    continue;
                 }
+            } catch (const std::exception&) {
+                std::cout << "Entrada no numérica. Presione Enter para intentar de nuevo.";
+                std::cin.get();
+                continue;
+            }
+
+            std::cout << "Ingrese columna inicial (0-9): ";
+            std::getline(std::cin, input);
+
+            try {
+                y = std::stoi(input);
+                if (y < 0 || y >= BOARD_SIZE) {
+                    std::cout << "Columna inválida. Debe estar entre 0 y 9. Presione Enter para intentar de nuevo.";
+                    std::cin.get();
+                    continue;
+                }
+            } catch (const std::exception&) {
+                std::cout << "Entrada no numérica. Presione Enter para intentar de nuevo.";
+                std::cin.get();
+                continue;
+            }
+
+            // Solicitar dirección
+            std::cout << "Ingrese dirección (H/V): ";
+            std::getline(std::cin, input);
+            if (input.empty()) {
+                std::cout << "Entrada vacía. Presione Enter para intentar de nuevo.";
+                std::cin.get();
+                continue;
+            }
+            direction = toupper(input[0]);
+
+            // Validar dirección y colocación del barco
+            if (direction == 'H' || direction == 'V') {
+                if (canPlaceShip(x, y, ship.size, direction)) {
+                    placeShip(x, y, ship.size, direction, ship.symbol);
+                    placed = true;
+                } else {
+                    std::cout << "No se puede colocar el barco ahí. Presione Enter para intentar de nuevo.";
+                    std::cin.get();
+                }
+            } else {
+                std::cout << "Dirección inválida. Use 'H' o 'V'. Presione Enter para intentar de nuevo.";
+                std::cin.get();
             }
         }
+    }
+}
 
         void randomPlacement() {
             srand(time(0));
@@ -626,7 +662,7 @@ void menu_logged_in(SOCKET client_socket, const std::string& clientIP, std::stri
     int main() {
         SetConsoleOutputCP(CP_UTF8);
         std::cin.tie(nullptr);
-        const std::string server_ip = "44.197.214.160";
+        const std::string server_ip = "3.92.237.93";
         const int server_port = 8080;
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
