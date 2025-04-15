@@ -10,20 +10,11 @@
 #include <set>
 #include <ctime>
 #include <algorithm>
+#include "game_common.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
 #define MAX_CLIENTS 100
-constexpr int BOARD_SIZE = 10;
-constexpr char WATER = '~';
-constexpr char HIT = 'X';
-constexpr char MISS = 'O';
-
-struct Ship {
-    std::string name;
-    int size;
-    char symbol;
-};
 
 std::vector<Ship> ships = {
     {"Aircraft Carrier", 5, 'A'},
@@ -31,156 +22,6 @@ std::vector<Ship> ships = {
     {"Cruiser", 3, 'C'}, {"Cruiser", 3, 'C'},
     {"Destroyer", 2, 'D'}, {"Destroyer", 2, 'D'},
     {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}, {"Submarine", 1, 'S'}
-};
-
-class Board {
-public:
-    std::vector<std::vector<char>> grid;
-    struct ShipInstance {
-        std::string name;
-        char symbol;
-        std::vector<std::pair<int, int>> positions;
-        bool sunk;
-        ShipInstance(const std::string& n, char s, const std::vector<std::pair<int, int>>& pos)
-            : name(n), symbol(s), positions(pos), sunk(false) {}
-    };
-    std::vector<ShipInstance> ship_instances;
-
-    Board() {
-        grid.resize(BOARD_SIZE, std::vector<char>(BOARD_SIZE, WATER));
-    }
-
-    void deserialize(const std::string& data) {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                grid[i][j] = data[i * BOARD_SIZE + j];
-            }
-        }
-        rebuildShipInstances();
-    }
-
-    void rebuildShipInstances() {
-        ship_instances.clear();
-        std::map<char, std::vector<std::pair<int, int>>> symbol_to_positions;
-
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (grid[i][j] != WATER && grid[i][j] != HIT && grid[i][j] != MISS) {
-                    symbol_to_positions[grid[i][j]].emplace_back(i, j);
-                }
-            }
-        }
-
-        for (const auto& ship : ships) {
-            auto& positions = symbol_to_positions[ship.symbol];
-            int size = ship.size;
-
-            while (positions.size() >= size) {
-                std::vector<std::pair<int, int>> current_ship;
-                for (auto it = positions.begin(); it != positions.end(); ) {
-                    if (current_ship.empty()) {
-                        current_ship.push_back(*it);
-                        it = positions.erase(it);
-                    } else {
-                        bool adjacent = false;
-                        auto last = current_ship.back();
-                        for (auto pos_it = it; pos_it != positions.end(); ++pos_it) {
-                            if ((pos_it->first == last.first && abs(pos_it->second - last.second) == 1) ||
-                                (pos_it->second == last.second && abs(pos_it->first - last.first) == 1)) {
-                                current_ship.push_back(*pos_it);
-                                it = positions.erase(pos_it);
-                                adjacent = true;
-                                break;
-                            }
-                        }
-                        if (!adjacent) break;
-                    }
-                    if (current_ship.size() == size) break;
-                }
-                if (current_ship.size() == size) {
-                    ship_instances.emplace_back(ship.name, ship.symbol, current_ship);
-                } else {
-                    positions.insert(positions.begin(), current_ship.begin(), current_ship.end());
-                    break;
-                }
-            }
-        }
-    }
-
-    bool isHit(int x, int y) const {
-        return grid[x][y] != WATER && grid[x][y] != HIT && grid[x][y] != MISS;
-    }
-
-    char getSymbol(int x, int y) const {
-        return grid[x][y];
-    }
-
-    void setHit(int x, int y) {
-        grid[x][y] = HIT;
-        checkSunk(x, y);
-    }
-
-    void setMiss(int x, int y) {
-        grid[x][y] = MISS;
-    }
-
-    void checkSunk(int x, int y) {
-        for (auto& ship : ship_instances) {
-            if (!ship.sunk) {
-                for (const auto& pos : ship.positions) {
-                    if (pos.first == x && pos.second == y) {
-                        bool all_hit = true;
-                        for (const auto& p : ship.positions) {
-                            if (grid[p.first][p.second] != HIT) {
-                                all_hit = false;
-                                break;
-                            }
-                        }
-                        if (all_hit) {
-                            ship.sunk = true;
-                        }
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    std::string getSunkShipName(int x, int y) {
-        for (const auto& ship : ship_instances) {
-            if (ship.sunk) {
-                for (const auto& pos : ship.positions) {
-                    if (pos.first == x && pos.second == y) {
-                        return ship.name;
-                    }
-                }
-            }
-        }
-        return "";
-    }
-
-    bool allShipsSunk() {
-        for (const auto& ship : ship_instances) {
-            if (!ship.sunk) return false;
-        }
-        return true;
-    }
-
-    int countShips() const {
-        int total_length = 0;
-        for (const auto& ship : ships) {
-            total_length += ship.size;
-        }
-        int current_length = 0;
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (grid[i][j] != WATER && grid[i][j] != HIT && grid[i][j] != MISS) {
-                    current_length++;
-                }
-            }
-        }
-        return (current_length == total_length) ? total_length : 0;
-    }
 };
 
 struct Game {
@@ -371,7 +212,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 send(state.user_sockets[opponent], "GAME|WIN", strlen("GAME|WIN"), 0);
                 log_event(state, opponent + " gana por abandono de " + logged_user);
             }
-            // Limpiar el juego directamente
             state.user_games.erase(game->player1);
             state.user_games.erase(game->player2);
             auto it = std::ranges::find(state.games, game);
@@ -529,7 +369,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 }
                 log_event(state, "Partida finalizada: " + logged_user + " ganó contra " + opponent);
 
-                // Limpiar el juego pero mantener a los usuarios activos
                 state.user_games.erase(game->player1);
                 state.user_games.erase(game->player2);
                 auto it = std::ranges::find(state.games, game);
@@ -538,7 +377,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 }
                 delete game;
 
-                // Enviar mensaje explícito para volver al menú principal
                 if (state.user_sockets.contains(logged_user)) {
                     send(state.user_sockets[logged_user], "GAME|ENDED", strlen("GAME|ENDED"), 0);
                 }
@@ -578,7 +416,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
             if (result == SOCKET_ERROR) {
                 log_event(state, "Error enviando TURN a " + opponent + ": " + std::to_string(WSAGetLastError()));
                 send(state.user_sockets[logged_user], "GAME|WIN", strlen("GAME|WIN"), 0);
-                // Limpiar el juego directamente
                 state.user_games.erase(game->player1);
                 state.user_games.erase(game->player2);
                 auto it = std::ranges::find(state.games, game);
@@ -597,7 +434,6 @@ void process_protocols(const std::string& command, const std::string& param1, co
                 log_event(state, "Error enviando GAME|WIN por desconexión a " + logged_user + ": " + std::to_string(WSAGetLastError()));
             }
             log_event(state, "Oponente " + opponent + " desconectado, victoria para " + logged_user);
-            // Limpiar el juego directamente
             state.user_games.erase(game->player1);
             state.user_games.erase(game->player2);
             auto it = std::ranges::find(state.games, game);
