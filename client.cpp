@@ -8,8 +8,8 @@
 #include <windows.h>
 #include <limits>
 #include "game_common.h"
-#include "client_network.h"
-#include "client_ui.h"
+#include "client_network.cpp"
+#include "client_ui.cpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
