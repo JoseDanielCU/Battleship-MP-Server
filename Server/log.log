@@ -1,0 +1,51 @@
+[Mon Apr 14 21:31:28 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:31:31 2025] Intento de login fallido: Credenciales incorrectas - 1
+[Mon Apr 14 21:31:34 2025] Usuario registrado: 1
+[Mon Apr 14 21:31:34 2025] Error enviando LOGOUT|OK a : Bad file descriptor
+[Mon Apr 14 21:31:37 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:31:38 2025] Usuario logueado: 1
+[Mon Apr 14 21:31:38 2025] Usuario limpiado: 1
+[Mon Apr 14 21:31:38 2025] Cliente desconectado: 1 (recv falló con -1, error: Resource temporarily unavailable)
+[Mon Apr 14 21:31:49 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:31:50 2025] Usuario logueado: 1
+[Mon Apr 14 21:31:50 2025] Usuario limpiado: 1
+[Mon Apr 14 21:31:50 2025] Cliente desconectado: 1 (recv falló con -1, error: Resource temporarily unavailable)
+[Mon Apr 14 21:32:14 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:32:15 2025] Cliente desconectado: Anónimo (recv falló con -1, error: Connection reset by peer)
+[Mon Apr 14 21:32:35 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:32:38 2025] Usuario registrado: 2
+[Mon Apr 14 21:32:41 2025] Usuario logueado: 1
+[Mon Apr 14 21:32:41 2025] Usuario limpiado: 1
+[Mon Apr 14 21:32:41 2025] Cliente desconectado: 1 (recv falló con -1, error: Resource temporarily unavailable)
+[Mon Apr 14 21:32:44 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:32:45 2025] Usuario logueado: 2
+[Mon Apr 14 21:32:45 2025] Usuario limpiado: 2
+[Mon Apr 14 21:32:45 2025] Cliente desconectado: 2 (recv falló con -1, error: Resource temporarily unavailable)
+[Mon Apr 14 21:33:09 2025] Nuevo cliente conectado desde 172.26.64.1
+[Mon Apr 14 21:33:16 2025] Usuario logueado: 1
+[Mon Apr 14 21:33:16 2025] Usuario limpiado: 1
+[Mon Apr 14 21:33:16 2025] Cliente desconectado: 1 (recv falló con -1, error: Resource temporarily unavailable)
+[Mon Apr 14 21:35:38 2025] Usuario logueado: 1
+[Mon Apr 14 21:35:42 2025] Usuario deslogueado: 1
+[Mon Apr 14 21:35:48 2025] Usuario logueado: 1
+[Mon Apr 14 21:35:59 2025] Usuario logueado: 2
+[Mon Apr 14 21:36:04 2025] 1 ha entrado en cola para jugar
+[Mon Apr 14 21:36:05 2025] 2 ha entrado en cola para jugar
+[Mon Apr 14 21:36:05 2025] Partida iniciada: 1 vs 2
+[Mon Apr 14 21:36:10 2025] Intento de procesar BOARD de 2
+[Mon Apr 14 21:36:10 2025] Tablero recibido de 2 para juego 1 vs 2
+[Mon Apr 14 21:36:11 2025] Intento de procesar BOARD de 1
+[Mon Apr 14 21:36:11 2025] Tablero recibido de 1 para juego 1 vs 2
+[Mon Apr 14 21:36:11 2025] Enviando TURN a ambos jugadores: TURN|1
+[Mon Apr 14 21:36:11 2025] Ambos tableros listos, turno inicial: 1
+[Mon Apr 14 21:36:16 2025] 2 gana por abandono de 1
+[Mon Apr 14 21:36:16 2025] Usuario deslogueado: 1
+[Mon Apr 14 21:36:22 2025] Lista de jugadores enviada a 2
+[Mon Apr 14 21:36:24 2025] Lista de jugadores enviada a 2
+[Mon Apr 14 21:39:42 2025] Lista de jugadores enviada a 2
+[Mon Apr 14 21:45:06 2025] Usuario deslogueado: 2
+[Mon Apr 14 21:45:12 2025] Cliente anónimo desconectado (recv falló con -1, error: Connection reset by peer)
+[Mon Apr 14 21:47:03 2025] Cliente anónimo desconectado (recv falló con -1, error: Connection reset by peer)
+[Mon Apr 14 21:47:10 2025] Usuario logueado: 1
+[Mon Apr 14 21:47:28 2025] Lista de jugadores enviada a 1
+[Mon Apr 14 21:47:38 2025] Usuario deslogueado: 1

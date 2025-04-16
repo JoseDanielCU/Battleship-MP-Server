@@ -648,8 +648,12 @@ void handle_client(int client_socket, ServerState& state) {
         }
 
         process_protocols(command, param1, param2, client_socket, logged_user, state);
+        if (command == "LOGOUT") {
+            break;
+        }
     }
-}
+ }
+
 
 volatile sig_atomic_t server_running = 1;
 
