@@ -1,0 +1,20 @@
+# Ignorar archivos de configuración de CLion
+.idea/
+
+# Ignorar archivos generados por CMake
+cmake-build-debug/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+.idea/workspace.xml
+cmake-build-debug/Testing/Temporary/LastTest.log
+# Ignorar archivos binarios compilados
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+
+
