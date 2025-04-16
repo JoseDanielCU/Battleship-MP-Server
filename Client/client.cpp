@@ -25,7 +25,7 @@ BOOL WINAPI ConsoleHandler(DWORD signal) {
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     std::cin.tie(nullptr);
-    const std::string server_ip = "172.26.73.33";
+    const std::string server_ip = "3.210.99.80";
     const int server_port = 8080;
 
     if (!SetConsoleCtrlHandler(ConsoleHandler, TRUE)) {

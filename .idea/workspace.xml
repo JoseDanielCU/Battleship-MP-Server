@@ -7,6 +7,7 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -31,24 +32,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13071747-b596-4393-b790-2d1723bf07aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/client.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/game_common.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/game_common.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/game_manager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/game_manager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/network.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/network.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/ui.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/ui.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Client/client.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cliente.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverlinux.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server/serverlinux.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +160,8 @@
       <workItem from="1744312393894" duration="449000" />
       <workItem from="1744674511127" duration="874000" />
       <workItem from="1744675565909" duration="10153000" />
-      <workItem from="1744765368229" duration="5000" />
+      <workItem from="1744765368229" duration="685000" />
+      <workItem from="1744812644560" duration="354000" />
     </task>
     <servers />
   </component>
