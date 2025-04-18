@@ -1,29 +1,23 @@
-# Battleship-MP-Server
+# Battleship - Batalla Naval Cliente-Servidor
 
 ## Descripción
-Este proyecto es un servidor de Batalla Naval implementado en C++ utilizando Winsock para la comunicación en red e hilos STL para concurrencia. Desplegado en una instancia AWS EC2 (Windows), permite a dos jugadores registrarse, iniciar sesión, entrar en cola, configurar tableros, jugar turnos, y manejar desconexiones. Los eventos se registran en un archivo de log. El servidor soporta una flota predefinida de 9 barcos en un tablero de 10x10.
+Battleship es un juego multijugador en red basado en el clásico juego de Batalla Naval, implementado en C++ con una arquitectura cliente-servidor. Los jugadores pueden registrarse, iniciar sesión, configurar tableros de juego (manualmente o aleatoriamente), y competir en partidas 1v1 en un tablero de 10x10. El proyecto soporta dos versiones del servidor: una para Windows (usando Winsock) y otra para Linux (usando sockets POSIX).
 
-### Características
-- Registro y autenticación (`REGISTER`, `LOGIN`, `LOGOUT`).
-- Cola de emparejamiento (`QUEUE`, `CANCEL_QUEUE`).
-- Configuración de tableros mediante `BOARD`.
-- Juego por turnos con disparos (`FIRE`, `HIT`, `MISS`, `SUNK`).
-- Lista de jugadores activos (`PLAYERS`).
-- Registro de eventos en un archivo de log.
-- Despliegue en AWS con IP pública.
-
-### Flota de Barcos
-- Aircraft Carrier 
-- Battleship 
-- 2x Cruiser 
-- 2x Destroyer 
-- 3x Submarine 
-
----
+## Características
+- **Autenticación**: Registro e inicio de sesión de usuarios.
+- **Configuración del tablero**: Manual o aleatoria para colocar barcos.
+- **Juego en red**: Partidas 1v1 con turnos alternados.
+- **Interfaz de consola**: Visualización de tableros, eventos y menús.
+- **Soporte multiplataforma**: Servidor compatible con Windows y Linux.
+- **Registro de eventos**: Logs para depuración y monitoreo.
 
 ## Requisitos
-- **Cliente**: Sistema con `netcat` (`nc`) instalado.
-- **Servidor**: AWS EC2 (Windows Server) con MinGW o MSVC, y Winsock (`ws2_32.lib`).
-- **Red**: Puerto 8080 abierto en el Security Group de AWS.
+### Cliente (Windows)
+- Sistema operativo: Windows 10 o superior.
+- Compilador: MSVC (Visual Studio) o MinGW con soporte para C++17.
+- Bibliotecas: Winsock2 (`ws2_32.lib`).
 
----
+### Servidor
+- **Windows**: Igual que el cliente.
+- **Linux**: Distribución con soporte para g++ y bibliotecas estándar POSIX.
+- Compilador: g++ con soporte para C++17.
