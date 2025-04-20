@@ -40,7 +40,7 @@ int main() {
     // Desactiva la sincronización de std::cin para mejorar el rendimiento
     std::cin.tie(nullptr);
     // Define la IP del servidor (hardcoded)
-    const std::string server_ip = "172.26.73.33";
+    const std::string server_ip = "3.210.99.80";
     // Define el puerto del servidor (hardcoded)
     const int server_port = 8080;
 
