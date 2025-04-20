@@ -1,16 +1,9 @@
-//
-// Created by MLGda on 20/04/2025.
-//
+#pragma once
 
-#ifndef MATCHMAKING_H
-#define MATCHMAKING_H
+// Incluye la definición del estado del servidor.
+#include "server_state.h"
 
-
-
-class matchmaking {
-
-};
-
-
-
-#endif //MATCHMAKING_H
+// Inicia una nueva partida entre dos jugadores.
+void start_game(const std::string& player1, const std::string& player2, ServerState& state);
+// Gestiona el emparejamiento de jugadores en la cola.
+void matchmaking(ServerState& state);

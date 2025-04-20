@@ -3,7 +3,27 @@ project(Battleship_MP_Project)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(servidor Server/server.cpp)
+add_executable(servidor Server/server.cpp
+        Server/ship.h
+        Server/board.h
+        Server/game.h
+        Server/server_state.h
+        Server/protocol.h
+        Server/client_handler.h
+        Server/matchmaking.h
+        Server/serverlinux.cpp
+        Server/game_common.cpp
+        Server/game_common.h
+        Server/game.cpp
+        Server/game.h
+        Server/server_state.cpp
+        Server/server_state.h
+        Server/protocols.cpp
+        Server/protocols.h
+        Server/client_handler.cpp
+        Server/client_handler.h
+        Server/matchmaking.cpp
+        Server/matchmaking.h)
 add_executable(cliente Client/client.cpp
         Client/game_common.h
         Client/game_common.cpp

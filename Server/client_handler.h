@@ -1,16 +1,7 @@
-//
-// Created by MLGda on 20/04/2025.
-//
+#pragma once
 
-#ifndef CLIENT_HANDLER_H
-#define CLIENT_HANDLER_H
+// Incluye la definición del estado del servidor.
+#include "server_state.h"
 
-
-
-class client_handler {
-
-};
-
-
-
-#endif //CLIENT_HANDLER_H
+// Maneja la comunicación con un cliente conectado.
+void handle_client(int client_socket, ServerState& state);

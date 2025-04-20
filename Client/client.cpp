@@ -39,13 +39,9 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     // Desactiva la sincronización de std::cin para mejorar el rendimiento
     std::cin.tie(nullptr);
-<<<<<<< HEAD
-    const std::string server_ip = "3.210.99.80";
-=======
     // Define la IP del servidor (hardcoded)
-    const std::string server_ip = "172.26.73.33";
-    // Define el puerto del servidor (hardcoded)
->>>>>>> 41aecbd370695b56398bf29ff20f7dc4c1841584
+    const std::string server_ip = "3.210.99.80";
+    // Define el puerto del servidor (hardcoded)0...
     const int server_port = 8080;
 
     // Registra el manejador de consola para capturar señales
